@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CourrierViewDlg" widgetVar="CourrierViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCourrierTitle}">
+            <h:form id="CourrierViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{courrierController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCourrierLabel_id}"/>
+                        <h:outputText value="#{courrierController.selected.id}" title="#{bundle.ViewCourrierTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewCourrierLabel_numOrdreExt}"/>
+                        <h:outputText value="#{courrierController.selected.numOrdreExt}" title="#{bundle.ViewCourrierTitle_numOrdreExt}"/>
+                        <h:outputText value="#{bundle.ViewCourrierLabel_type}"/>
+                        <h:outputText value="#{courrierController.selected.type}" title="#{bundle.ViewCourrierTitle_type}"/>
+                        <h:outputText value="#{bundle.ViewCourrierLabel_nature}"/>
+                        <h:outputText value="#{courrierController.selected.nature}" title="#{bundle.ViewCourrierTitle_nature}"/>
+                        <h:outputText value="#{bundle.ViewCourrierLabel_objet}"/>
+                        <h:outputText value="#{courrierController.selected.objet}" title="#{bundle.ViewCourrierTitle_objet}"/>
+                        <h:outputText value="#{bundle.ViewCourrierLabel_dateArrivee}"/>
+                        <h:outputText value="#{courrierController.selected.dateArrivee}" title="#{bundle.ViewCourrierTitle_dateArrivee}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCourrierLabel_dateSaisie}"/>
+                        <h:outputText value="#{courrierController.selected.dateSaisie}" title="#{bundle.ViewCourrierTitle_dateSaisie}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCourrierLabel_contact}"/>
+                        <h:outputText value="#{courrierController.selected.contact}" title="#{bundle.ViewCourrierTitle_contact}"/>
+                        <p:outputLabel value="#{bundle.ListUa_affecte}" for="uniteAdministratives" />
+                        <p:selectManyMenu id="uniteAdministratives" value="#{courrierController.selected.uniteAdministratives}"  converter="uniteAdministrativeConverter">
+                            <f:selectItems value="#{uniteAdministrativeController.items}"
+                                           var="uniteAdministrativesItem"
+                                           itemValue="#{uniteAdministrativesItem}"
+                                           itemLabel="#{uniteAdministrativesItem.titre.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CourrierViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

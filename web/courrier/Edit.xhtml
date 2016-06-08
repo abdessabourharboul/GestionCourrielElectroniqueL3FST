@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CourrierEditDlg" widgetVar="CourrierEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCourrierTitle}">
+            <h:form id="CourrierEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{courrierController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCourrierLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{courrierController.selected.id}" title="#{bundle.EditCourrierTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditCourrierLabel_numOrdreExt}" for="numOrdreExt" />
+                        <p:inputText id="numOrdreExt" value="#{courrierController.selected.numOrdreExt}" title="#{bundle.EditCourrierTitle_numOrdreExt}" />
+                        <p:outputLabel value="#{bundle.EditCourrierLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{courrierController.selected.type}" title="#{bundle.EditCourrierTitle_type}" />
+                        <p:outputLabel value="#{bundle.EditCourrierLabel_nature}" for="nature" />
+                        <p:inputText id="nature" value="#{courrierController.selected.nature}" title="#{bundle.EditCourrierTitle_nature}" />
+                        <p:outputLabel value="#{bundle.EditCourrierLabel_objet}" for="objet" />
+                        <p:inputText id="objet" value="#{courrierController.selected.objet}" title="#{bundle.EditCourrierTitle_objet}" />
+                        <p:outputLabel value="#{bundle.EditCourrierLabel_dateArrivee}" for="dateArrivee" />
+                        <p:calendar id="dateArrivee" pattern="dd/MM/yyyy" value="#{courrierController.selected.dateArrivee}" title="#{bundle.EditCourrierTitle_dateArrivee}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCourrierLabel_dateSaisie}" for="dateSaisie" />
+                        <p:calendar id="dateSaisie" pattern="dd/MM/yyyy" value="#{courrierController.selected.dateSaisie}" title="#{bundle.EditCourrierTitle_dateSaisie}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCourrierLabel_contact}" for="contact" />
+                        <p:selectOneMenu id="contact" value="#{courrierController.selected.contact}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{contactController.itemsAvailableSelectOne}"
+                                           var="contactItem"
+                                           itemValue="#{contactItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.ListUa_affecte}" for="uniteAdministratives" />
+                        <p:selectManyMenu id="uniteAdministratives" value="#{courrierController.selected.uniteAdministratives}"  converter="uniteAdministrativeConverter">
+                            <f:selectItems value="#{uniteAdministrativeController.items}"
+                                           var="uniteAdministrativesItem"
+                                           itemValue="#{uniteAdministrativesItem}"
+                                           itemLabel="#{uniteAdministrativesItem.titre.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{courrierController.update}" value="#{bundle.Save}" update="display,:CourrierListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CourrierEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CourrierEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

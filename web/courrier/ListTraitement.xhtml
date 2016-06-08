@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+
+    <ui:composition>
+        <p:outputPanel autoUpdate="true">
+            <h:form id="TraitementListForm" rendered="#{courrierController.traitements.size()>0}">
+                <b:panel look="info" title="#{bundle.ListTraitementTitle}" style="text-align: center">
+                    <p:dataTable id="datalistTraitement" value="#{courrierController.traitements}" var="itemt"
+                                 selectionMode="single" selection="#{courrierController.traitement}"
+                                 paginator="true"
+                                 rowKey="#{itemt.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTraitementTitle_uniteTrait}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemt.uniteTrait.titre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTraitementTitle_contenu}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemt.contenu}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTraitementTitle_dateTraitement}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemt.dateTraitement}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </b:panel>
+            </h:form>
+
+        </p:outputPanel>
+    </ui:composition>
+</html>

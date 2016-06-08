@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CourrierDepartViewDlg" widgetVar="CourrierDepartViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCourrierDepartTitle}">
+            <h:form id="CourrierDepartViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{courrierDepartController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCourrierDepartLabel_contact}"/>
+                        <h:outputText value="#{courrierDepartController.selected.contact}" title="#{bundle.ViewCourrierDepartTitle_contact}"/>
+                        <h:outputText value="#{bundle.ViewCourrierDepartLabel_id}"/>
+                        <h:outputText value="#{courrierDepartController.selected.id}" title="#{bundle.ViewCourrierDepartTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewCourrierDepartLabel_dateDepart}"/>
+                        <h:outputText value="#{courrierDepartController.selected.dateDepart}" title="#{bundle.ViewCourrierDepartTitle_dateDepart}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCourrierDepartLabel_numOrdre}"/>
+                        <h:outputText value="#{courrierDepartController.selected.numOrdre}" title="#{bundle.ViewCourrierDepartTitle_numOrdre}"/>
+                        <h:outputText value="#{bundle.ViewCourrierDepartLabel_type}"/>
+                        <h:outputText value="#{courrierDepartController.selected.type}" title="#{bundle.ViewCourrierDepartTitle_type}"/>
+                        <h:outputText value="#{bundle.ViewCourrierDepartLabel_nature}"/>
+                        <h:outputText value="#{courrierDepartController.selected.nature}" title="#{bundle.ViewCourrierDepartTitle_nature}"/>
+                        <h:outputText value="#{bundle.ViewCourrierDepartLabel_contenu}"/>
+                        <h:outputText value="#{courrierDepartController.selected.contenu}" title="#{bundle.ViewCourrierDepartTitle_contenu}"/>
+                        <h:outputText value="#{bundle.ViewCourrierDepartLabel_objet}"/>
+                        <h:outputText value="#{courrierDepartController.selected.objet}" title="#{bundle.ViewCourrierDepartTitle_objet}"/>
+                        <h:outputText value="#{bundle.ViewCourrierDepartLabel_uniteDepart}"/>
+                        <h:outputText value="#{courrierDepartController.selected.uniteDepart}" title="#{bundle.ViewCourrierDepartTitle_uniteDepart}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CourrierDepartViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

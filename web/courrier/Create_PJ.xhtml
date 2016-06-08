@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PieceJointeCreateDlg" widgetVar="PieceJointeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePieceJointeTitle}">
+            <h:form id="PieceJointeCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{courrierController.pieceJointe != null}">
+                        <p:outputLabel value="Photo :" for="photo" />
+                        <p:panel>
+                            <p:fileUpload id="photo" fileUploadListener="#{courrierController.uploadEdit}" mode="advanced"
+                                          dragDropSupport="true" multiple="false" update="messages" sizeLimit="10000000"
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                            <p:growl id="messages" showDetail="true"/>
+                        </p:panel>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{courrierController.createPj()}" value="#{bundle.Save}" 
+                                     update="display,:CourrierListForm:datalist,:PieceJointeListForm:datalistPj,:growl" 
+                                     oncomplete="handleSubmit(args,'PieceJointeCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PieceJointeCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

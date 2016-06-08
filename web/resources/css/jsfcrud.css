@@ -1,0 +1,40 @@
+.ui-widget {
+    font-size: 12px !important;
+}
+.ui-layout-north {
+    z-index: 20 !important;
+    overflow: visible !important;;
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow: visible !important;
+}
+.ui-widget-header {
+    text-align: center;
+    text-transform: uppercase;
+}
+.ui-button {
+    margin-top: 10px !important;
+}
+/*.red{
+    background-color:#F44336 !important
+}*/
+/*.menubar {
+    background-color: #3b5998 !important;
+}
+
+.courrierPanel .ui-panel-titlebar {
+   background-color: lightskyblue;
+}
+.consignesPanel .ui-panel-titlebar {
+   background-color: cadetblue;
+}
+.pjPanel .ui-panel-titlebar {
+   background-color: aqua;
+}*/
+
+
+.hide
+{
+    display:none;
+    visibility:hidden;
+}

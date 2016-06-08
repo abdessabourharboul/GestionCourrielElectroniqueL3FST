@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCourrierTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <b:row styleClass="show-grid">
+                <b:container>
+                    <b:column span="2">
+                        <h:form id="courrierMenu">
+                            <b:buttonGroup orientation="vertical" pull="left">
+                                <b:label text="Courriers" severity="warning"/>
+                                <b:commandButton value="Mes courriers" style="background-color: #279B61;color: white"><b:icon name="envelope"></b:icon></b:commandButton>
+                                <b:commandButton value="Mes courriers Favoris" icon="envelope" style="background-color: royalblue;color: white"></b:commandButton>
+                                <b:commandButton value="Courriers a Valider" style="background-color: #FFCC33;color: white"></b:commandButton>
+                                <p:separator></p:separator>
+                                <b:label text="Actions" severity="warning"/>
+                                <b:commandButton id="ajoutConsigne" style="background-color: #279B61;color: white" icon="plus"   value="#{bundle.ajoutConsigne}" update=":ConsigneCreateForm" oncomplete="PF('ConsigneCreateDialog').show()" disabled="#{userController.droits('ca')}"/>
+                                <b:commandButton id="ajoutTraitement" style="background-color: royalblue;color: white" icon="plus"   value="#{bundle.ajoutTraitement}" update=":TraitementCreateForm" oncomplete="PF('TraitementCreateDialog').show()" disabled="#{userController.droits('tca')}"/> 
+                                <b:commandButton id="validation" style="background-color: #FFCC33;color: white"   icon="check" value="#{bundle.Validation}" update=":CourrierListForm, :ConsigneListForm" actionListener="#{courrierController.validate()}" disabled="#{userController.droits('ca')}"/>
+                                <b:commandButton id="reaffectationButton"  style="background-color: #CC3333;color: white"  icon="pencil" value="#{bundle.Reaffectation}" update=":CourrierReaffectationForm" oncomplete="PF('CourrierReaffectationDialog').show()" disabled="#{userController.droits('ca')}"/>
+                            </b:buttonGroup>
+                        </h:form>
+                    </b:column>
+                    <b:column span="10">
+
+
+                        <h:form id="CourrierListForm">
+                            <b:panel look="primary" title="#{bundle.ListCourrierTitle}" style="text-align: center">
+
+                                <p:dataTable id="datalist" value="#{courrierController.items}" var="item"
+                                             selectionMode="single" selection="#{courrierController.selected}"
+                                             paginator="true"
+                                             rowKey="#{item.id}"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             >
+
+                                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton :courrierMenu:ajoutConsigne :courrierMenu:validation :courrierMenu:reaffectationButton :courrierMenu:ajoutTraitement"/>
+                                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton :courrierMenu:ajoutConsigne :courrierMenu:validation :courrierMenu:reaffectationButton :courrierMenu:ajoutTraitement"/>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierTitle_id}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.id}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierTitle_numOrdreExt}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.numOrdreExt}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierTitle_type}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.type}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierTitle_nature}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nature}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierTitle_objet}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.objet}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierTitle_dateArrivee}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.dateArrivee}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierTitle_dateSaisie}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.dateSaisie}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierTitle_contact}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.contact.nom}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierTitle_contact}"/>
+                                        </f:facet>
+
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <b:commandButton id="createButton" look="success" icon="plus"   value="#{bundle.Create}" actionListener="#{courrierController.prepareCreate}" update=":CourrierCreateForm" oncomplete="PF('CourrierCreateDialog').show()" rendered="#{!userController.droits('s')}"/>
+                                        <b:commandButton id="viewButton" look="warning"  icon="search" value="#{bundle.View}" update=":CourrierViewForm" oncomplete="PF('CourrierViewDialog').show()" disabled="#{empty courrierController.selected}"/>
+                                        <b:commandButton id="editButton" look="primary"  icon="pencil" value="#{bundle.Edit}" update=":CourrierEditForm" oncomplete="PF('CourrierEditDialog').show()" rendered="#{!userController.droits('tous')}"/>
+                                        <b:commandButton id="deleteButton" look="danger" icon="trash"  value="#{bundle.Delete}" actionListener="#{courrierController.destroy}" update=":growl,datalist" rendered="#{!userController.droits('tous')}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </b:panel>
+                        </h:form>
+                        <ui:include src="ListConsignes.xhtml"/>
+                        <ui:include src="ListPJ.xhtml"/>
+                        <ui:include src="ListTraitement.xhtml"/>
+
+                    </b:column>
+                </b:container>
+            </b:row>
+
+
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+            <ui:include src="Reaffectation.xhtml"/>
+            <ui:include src="Create_Consigne.xhtml"/>
+            <ui:include src="Create_PJ.xhtml"/>
+            <ui:include src="CreateTraitement.xhtml"/>
+            <ui:include src="CreateContact.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

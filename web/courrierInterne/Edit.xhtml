@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CourrierInterneEditDlg" widgetVar="CourrierInterneEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCourrierInterneTitle}">
+            <h:form id="CourrierInterneEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{courrierInterneController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCourrierInterneLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{courrierInterneController.selected.id}" title="#{bundle.EditCourrierInterneTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditCourrierInterneLabel_dateDepart}" for="dateDepart" />
+                        <p:calendar id="dateDepart" pattern="dd/MM/yyyy" value="#{courrierInterneController.selected.dateDepart}" title="#{bundle.EditCourrierInterneTitle_dateDepart}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCourrierInterneLabel_numOrdre}" for="numOrdre" />
+                        <p:inputText id="numOrdre" value="#{courrierInterneController.selected.numOrdre}" title="#{bundle.EditCourrierInterneTitle_numOrdre}" />
+                        <p:outputLabel value="#{bundle.EditCourrierInterneLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{courrierInterneController.selected.type}" title="#{bundle.EditCourrierInterneTitle_type}" />
+                        <p:outputLabel value="#{bundle.EditCourrierInterneLabel_nature}" for="nature" />
+                        <p:inputText id="nature" value="#{courrierInterneController.selected.nature}" title="#{bundle.EditCourrierInterneTitle_nature}" />
+                        <p:outputLabel value="#{bundle.EditCourrierInterneLabel_contenu}" for="contenu" />
+                        <p:inputText id="contenu" value="#{courrierInterneController.selected.contenu}" title="#{bundle.EditCourrierInterneTitle_contenu}" />
+                        <p:outputLabel value="#{bundle.EditCourrierInterneLabel_objet}" for="objet" />
+                        <p:inputText id="objet" value="#{courrierInterneController.selected.objet}" title="#{bundle.EditCourrierInterneTitle_objet}" />
+                        <p:outputLabel value="#{bundle.EditCourrierInterneLabel_uniteDepart}" for="uniteDepart" />
+                        <p:selectOneMenu id="uniteDepart" value="#{courrierInterneController.selected.uniteDepart}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{uniteAdministrativeController.itemsAvailableSelectOne}"
+                                           var="uniteDepartItem"
+                                           itemValue="#{uniteDepartItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{courrierInterneController.update}" value="#{bundle.Save}" update="display,:CourrierInterneListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CourrierInterneEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CourrierInterneEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

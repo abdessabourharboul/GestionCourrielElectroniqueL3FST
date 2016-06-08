@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <h:outputStylesheet name="css/jsfcrud.css"></h:outputStylesheet>
+        <h:outputScript library="js" name="jsfcrud.js"></h:outputScript>
+        <h:outputStylesheet library="css" name="badge.css"></h:outputStylesheet>
+        
+    </h:head>
+    <h:body>
+        <f:view locale="#{languageCTR.language}">
+            <p:growl id="growl" life="3000" />
+            <h:form>
+                <b:navBar brand="#{bundle.AppName}"  brand-href="#" inverse="true" >
+                    <b:navbarLinks>
+                        <b:navLink value="#{userController.connectedUser.id.toUpperCase()}" href="#" icon="user"></b:navLink>
+                        <b:navLink value="#{bundle.Home}" outcome="/template.xhtml" icon="home"/>
+                        <b:dropMenu value="#{bundle.Maintenance}" icon="briefcase"> 
+                            <b:navLink value="Consigne" outcome="/consigne/List.xhtml" icon="bookmark"/>
+                            <b:navLink value="Courrier" outcome="/courrier/List.xhtml" icon="envelope" ><b:badge value="1" style="color: white;"  styleClass="red" /></b:navLink>
+                            <b:navLink value="Courrier Interne" outcome="/courrierInterne/List.xhtml" icon="envelope" />
+                            <b:navLink value="Courrier Depart" outcome="/courrierDepart/List.xhtml" icon="envelope" />
+                            <b:navLink value="PieceJointe" outcome="/pieceJointe/List.xhtml" icon="paperclip" disabled="#{userController.droits('tous')}" />
+                            <b:navLink value="Gestion des Roles" icon="filter" outcome="/admin/role/List.xhtml" disabled="#{userController.droits('tous')}" />
+                            <b:navLink value="Gestion des Unités Administratives" icon="globe" outcome="/admin/uniteAdministrative/List.xhtml" disabled="#{userController.droits('tous')}" />
+                            <b:navLink value="Gestion des utilisateurs" outcome="/admin/user/List.xhtml" icon="user" disabled="#{userController.droits('tous')}" ></b:navLink>
+                        </b:dropMenu>
+                        <b:dropMenu value="#{bundle.Parametres}" icon="cog">
+                            <b:navLink value="Changer Mon mot de passe" outcome="/Parametres/ChangePassword.xhtml" icon="wrench"/>
+                            <b:navLink value="Changer la langue" outcome="/Parametres/ChangeLanguage.xhtml" icon="flag"/>
+                        </b:dropMenu>
+                    </b:navbarLinks>
+                    <b:navbarLinks pull="right">
+                        <b:navCommandLink value="#{bundle.Logout}" action="#{userController.seDeconnecter()}" icon="log-out"   />
+                    </b:navbarLinks>
+
+                </b:navBar>
+            </h:form>
+
+
+
+            <ui:insert name="body"/>
+            <!--            <h:form>
+                            <b:navBar brand="Designed and built by ABDESSABOUR HARBOUL      © 2015-2016" 
+                                      brand-href="#" inverse="true" position="bottom" >
+                            </b:navBar>
+                        </h:form>-->
+        </f:view>
+    </h:body>
+</html>

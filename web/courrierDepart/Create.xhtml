@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CourrierDepartCreateDlg" widgetVar="CourrierDepartCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCourrierDepartTitle}">
+            <h:form id="CourrierDepartCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{courrierDepartController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCourrierDepartLabel_contact}" for="contact" />
+                        <p:selectOneMenu id="contact" value="#{courrierDepartController.selected.contact}" >
+                            <f:selectItems value="#{contactController.itemsAvailableSelectOne}"
+                                           var="contactItem"
+                                           itemValue="#{contactItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateCourrierDepartLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{courrierDepartController.selected.id}" title="#{bundle.CreateCourrierDepartTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateCourrierDepartLabel_dateDepart}" for="dateDepart" />
+                        <p:calendar id="dateDepart" pattern="dd/MM/yyyy" value="#{courrierDepartController.selected.dateDepart}" title="#{bundle.EditCourrierDepartTitle_dateDepart}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateCourrierDepartLabel_numOrdre}" for="numOrdre" />
+                        <p:inputText id="numOrdre" value="#{courrierDepartController.selected.numOrdre}" title="#{bundle.CreateCourrierDepartTitle_numOrdre}" />
+                        <p:outputLabel value="#{bundle.CreateCourrierDepartLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{courrierDepartController.selected.type}" title="#{bundle.CreateCourrierDepartTitle_type}" />
+                        <p:outputLabel value="#{bundle.CreateCourrierDepartLabel_nature}" for="nature" />
+                        <p:inputText id="nature" value="#{courrierDepartController.selected.nature}" title="#{bundle.CreateCourrierDepartTitle_nature}" />
+                        <p:outputLabel value="#{bundle.CreateCourrierDepartLabel_contenu}" for="contenu" />
+                        <p:inputText id="contenu" value="#{courrierDepartController.selected.contenu}" title="#{bundle.CreateCourrierDepartTitle_contenu}" />
+                        <p:outputLabel value="#{bundle.CreateCourrierDepartLabel_objet}" for="objet" />
+                        <p:inputText id="objet" value="#{courrierDepartController.selected.objet}" title="#{bundle.CreateCourrierDepartTitle_objet}" />
+                        <p:outputLabel value="#{bundle.CreateCourrierDepartLabel_uniteDepart}" for="uniteDepart" />
+                        <p:selectOneMenu id="uniteDepart" value="#{courrierDepartController.selected.uniteDepart}" >
+                            <f:selectItems value="#{uniteAdministrativeController.itemsAvailableSelectOne}"
+                                           var="uniteDepartItem"
+                                           itemValue="#{uniteDepartItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{courrierDepartController.create}" value="#{bundle.Save}" update="display,:CourrierDepartListForm:datalist,:growl" oncomplete="handleSubmit(args,'CourrierDepartCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CourrierDepartCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

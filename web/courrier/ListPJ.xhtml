@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition>
+        <p:outputPanel autoUpdate="true">
+            <h:form id="PieceJointeListForm" rendered="#{courrierController.pieceJointes.size()>0}">
+                <b:panel title="#{bundle.ListPieceJointeTitle}" look="success" style="text-align: center">
+                    <p:dataTable id="datalistPj" value="#{courrierController.pieceJointes}" var="itemp"
+                                 selectionMode="single" selection="#{courrierController.pieceJointe}"
+                                 paginator="true"
+                                 rowKey="#{itemp.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+                        <p:ajax event="rowSelect"   update="createButton1 deleteButton1"/>
+                        <p:ajax event="rowUnselect" update="createButton1 deleteButton1"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPieceJointeTitle_photo}"/>
+                            </f:facet>
+                            <p:panel>    
+                                <p:graphicImage style="height:100px;width:100px;" value="#{courrierController.findPath(itemp)}"/>
+                            </p:panel>                        
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPieceJointeTitle_Download}"/>
+                            </f:facet>
+                            <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                <p:fileDownload value="#{courrierController.fileDownloadView(itemp)}" />
+                            </p:commandButton>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton1" icon="ui-icon-document"   value="#{bundle.Add_PJ}"
+                                             update=":PieceJointeCreateForm" oncomplete="PF('PieceJointeCreateDialog').show()"/>
+                            <p:commandButton id="deleteButton1" icon="ui-icon-trash"  value="#{bundle.Del_PJ}" 
+                                             actionListener="#{courrierController.destroyPj(courrierController.pieceJointe)}" 
+                                             update=":growl,:PieceJointeListForm:datalistPj,:CourrierListForm:datalist" 
+                                             disabled="#{empty courrierController.pieceJointe}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </b:panel>
+            </h:form>
+        </p:outputPanel>
+    </ui:composition>
+</html>

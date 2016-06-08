@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <style>
+        .ui-inputtext {
+            width:400px !important;
+        }
+        .ui-selectmanymenu {
+            width:400px !important;
+        }
+        .ui-selectonemenu{
+            width:400px !important;
+        }
+    </style>
+    <ui:composition>
+
+        <p:dialog id="CourrierCreateDlg" width="800" height="300" widgetVar="CourrierCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="#{bundle.CreateCourrierTitle}">
+            <h:form id="CourrierCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{courrierController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCourrierLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{courrierController.selected.id}" title="#{bundle.CreateCourrierTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateCourrierLabel_numOrdreExt}" for="numOrdreExt" />
+                        <p:inputText id="numOrdreExt" value="#{courrierController.selected.numOrdreExt}" title="#{bundle.CreateCourrierTitle_numOrdreExt}" />
+                        <p:outputLabel value="#{bundle.CreateCourrierLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{courrierController.selected.type}" title="#{bundle.CreateCourrierTitle_type}" />
+                        <p:outputLabel value="#{bundle.CreateCourrierLabel_nature}" for="nature" />
+                        <p:inputText id="nature" value="#{courrierController.selected.nature}" title="#{bundle.CreateCourrierTitle_nature}" />
+                        <p:outputLabel value="#{bundle.CreateCourrierLabel_objet}" for="objet" />
+                        <p:inputText id="objet" value="#{courrierController.selected.objet}" title="#{bundle.CreateCourrierTitle_objet}" />
+                        <p:outputLabel value="#{bundle.CreateCourrierLabel_dateArrivee}" for="dateArrivee" />
+                        <p:calendar id="dateArrivee" pattern="dd/MM/yyyy" value="#{courrierController.selected.dateArrivee}" title="#{bundle.EditCourrierTitle_dateArrivee}"  effect="fold"/>
+                        <p:outputLabel value="#{bundle.CreateCourrierLabel_dateSaisie}" for="dateSaisie" />
+                        <p:calendar id="dateSaisie" pattern="dd/MM/yyyy" value="#{courrierController.selected.dateSaisie}" title="#{bundle.EditCourrierTitle_dateSaisie}" effect="fold"/>
+                        <p:outputLabel value="#{bundle.CreateCourrierLabel_contact}" for="contact" />
+                        <p:selectOneMenu id="contact" filter="true" value="#{courrierController.selected.contact}" >
+                            <f:selectItem itemLabel="Selectionner un Contact" itemValue="#{courrierController.contact}"/>
+                            <f:selectItems value="#{contactController.itemsAvailableSelectOne}"
+                                           var="contactItem"
+                                           itemLabel="#{contactItem.nom}"
+                                           itemValue="#{contactItem}"/>
+                            <f:selectItem itemLabel="Add new one" itemValue=""/>
+                            <p:ajax event="change" listener="#{courrierController.needCreateContact()}" process="@this"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.ListUa_affecte}" for="uniteAdministratives" />
+                        <p:selectManyMenu id="uniteAdministratives" showCheckbox="true" value="#{courrierController.selected.uniteAdministratives}"  converter="uniteAdministrativeConverter">
+                            <f:selectItems value="#{uniteAdministrativeController.items}"
+                                           var="uniteAdministrativesItem"
+                                           itemValue="#{uniteAdministrativesItem}"
+                                           itemLabel="#{uniteAdministrativesItem.titre.toString()}"
+                                           />
+                        </p:selectManyMenu>
+                        <p:outputLabel value="Photo :" for="photo" />
+                        <p:panel>
+                            <p:fileUpload id="photo" fileUploadListener="#{courrierController.upload}" mode="advanced"
+                                          dragDropSupport="true" multiple="false" update="messages" sizeLimit="10000000"
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                            <p:growl id="messages" showDetail="true"/>
+                        </p:panel>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{courrierController.create}" value="#{bundle.Save}" update="display,:CourrierListForm:datalist,:growl" oncomplete="handleSubmit(args,'CourrierCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CourrierCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

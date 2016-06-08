@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ConsigneViewDlg" widgetVar="ConsigneViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewConsigneTitle}">
+            <h:form id="ConsigneViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{consigneController.selected != null}">
+                        <h:outputText value="#{bundle.ViewConsigneLabel_id}"/>
+                        <h:outputText value="#{consigneController.selected.id}" title="#{bundle.ViewConsigneTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewConsigneLabel_contenu}"/>
+                        <h:outputText value="#{consigneController.selected.contenu}" title="#{bundle.ViewConsigneTitle_contenu}"/>
+                        <h:outputText value="#{bundle.ViewConsigneLabel_dateConsigne}"/>
+                        <h:outputText value="#{consigneController.selected.dateConsigne}" title="#{bundle.ViewConsigneTitle_dateConsigne}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewConsigneLabel_uniteAdministrativeDepart}"/>
+                        <h:outputText value="#{consigneController.selected.uniteAdministrativeDepart}" title="#{bundle.ViewConsigneTitle_uniteAdministrativeDepart}"/>
+                        <h:outputText value="#{bundle.ViewConsigneLabel_courrier}"/>
+                        <h:outputText value="#{consigneController.selected.courrier}" title="#{bundle.ViewConsigneTitle_courrier}"/>
+                        <h:outputText value="#{bundle.ViewConsigneLabel_courrierInterne}"/>
+                        <h:outputText value="#{consigneController.selected.courrierInterne}" title="#{bundle.ViewConsigneTitle_courrierInterne}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ConsigneViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

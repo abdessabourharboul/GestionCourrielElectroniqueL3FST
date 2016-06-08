@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" v="1.6" xs="false" id="_14651421148341" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd">
+    <jpa:entity xre="false" compositePrimaryKeyClass="UniteadministrativePK" sm="false" abs="false" class="Uniteadministrative" visibile="true" minimized="false" rootElement="_14651421148341" id="_14651421148736">
+        <jpa:attributes>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="titre" id="_146514211487844">
+                <jpa:column name="TITRE" unique="false" nullable="true" insertable="true" updatable="true" table="uniteadministrative" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-many own="true" collection-type="java.util.List" connected-entity-id="_14651421148737" connected-attribute-id="_146514211487966" visibile="true" name="courrierCollection" id="_146514211487947">
+                <jpa:join-table name="courrier_uniteadministrative">
+                    <jpa:join-column name="UNITEADMINISTRATIVE_ID" rc="UNITEADMINISTRATIVE_ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+                    <jpa:inverse-join-column name="COURRIER_ID" rc="COURRIER_ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+            <jpa:id attribute-type="Long" visibile="true" name="uniteadministrativeId" id="_146514211487843">
+                <jpa:column name="uniteadministrative_id" unique="false" nullable="false" insertable="true" updatable="true" table="uniteadministrative"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:table name="uniteadministrative"/>
+    </jpa:entity>
+    <jpa:entity xre="false" compositePrimaryKeyClass="CourrierPK" sm="false" abs="false" class="Courrier" visibile="true" minimized="false" rootElement="_14651421148341" id="_14651421148737">
+        <jpa:attributes>
+            <jpa:basic optional="true" attribute-type="java.util.Date" visibile="true" name="datearrivee" id="_146514211487957">
+                <jpa:column name="DATEARRIVEE" unique="false" nullable="true" insertable="true" updatable="true" table="courrier"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="java.util.Date" visibile="true" name="datesaisie" id="_146514211487958">
+                <jpa:column name="DATESAISIE" unique="false" nullable="true" insertable="true" updatable="true" table="courrier"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="nature" id="_146514211487959">
+                <jpa:column name="NATURE" unique="false" nullable="true" insertable="true" updatable="true" table="courrier" length="255"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="java.math.BigInteger" visibile="true" name="numordreext" id="_146514211487960">
+                <jpa:column name="NUMORDREEXT" unique="false" nullable="true" insertable="true" updatable="true" table="courrier"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="objet" id="_146514211487961">
+                <jpa:column name="OBJET" unique="false" nullable="true" insertable="true" updatable="true" table="courrier" length="255"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="type" id="_146514211487962">
+                <jpa:column name="TYPE" unique="false" nullable="true" insertable="true" updatable="true" table="courrier" length="255"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="Boolean" visibile="true" name="validationcabinet" id="_146514211487963">
+                <jpa:column name="VALIDATIONCABINET" unique="false" nullable="true" insertable="true" updatable="true" table="courrier"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="Boolean" visibile="true" name="validationdai" id="_146514211487964">
+                <jpa:column name="VALIDATIONDAI" unique="false" nullable="true" insertable="true" updatable="true" table="courrier"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="Boolean" visibile="true" name="validationsg" id="_146514211487965">
+                <jpa:column name="VALIDATIONSG" unique="false" nullable="true" insertable="true" updatable="true" table="courrier"/>
+            </jpa:basic>
+            <jpa:many-to-one primaryKey="false" connected-entity-id="_14651421148738" connected-attribute-id="_146514211487977" visibile="true" name="contactId" id="_146514211487969">
+                <jpa:join-column name="CONTACT_ID" rc="ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many own="false" collection-type="java.util.List" connected-entity-id="_146514211487411" connected-attribute-id="_146514211487999" visibile="true" name="piecejointeCollection" id="_146514211487970"/>
+            <jpa:many-to-many own="false" collection-type="java.util.List" connected-entity-id="_14651421148736" connected-attribute-id="_146514211487947" visibile="true" name="uniteadministrativeCollection" id="_146514211487966"/>
+            <jpa:id attribute-type="Long" visibile="true" name="courrierId" id="_146514211487956">
+                <jpa:column name="courrier_id" unique="false" nullable="false" insertable="true" updatable="true" table="courrier"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:table name="courrier"/>
+    </jpa:entity>
+    <jpa:entity xre="false" compositePrimaryKeyClass="ContactPK" sm="false" abs="false" class="Contact" visibile="true" minimized="false" rootElement="_14651421148341" id="_14651421148738">
+        <jpa:attributes>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="adresse" id="_146514211487972">
+                <jpa:column name="ADRESSE" unique="false" nullable="true" insertable="true" updatable="true" table="contact" length="255"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="nom" id="_146514211487973">
+                <jpa:column name="NOM" unique="false" nullable="true" insertable="true" updatable="true" table="contact" length="255"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="numtel" id="_146514211487974">
+                <jpa:column name="NUMTEL" unique="false" nullable="true" insertable="true" updatable="true" table="contact" length="255"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="type" id="_146514211487975">
+                <jpa:column name="TYPE" unique="false" nullable="true" insertable="true" updatable="true" table="contact" length="255"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="ville" id="_146514211487976">
+                <jpa:column name="VILLE" unique="false" nullable="true" insertable="true" updatable="true" table="contact" length="255"/>
+            </jpa:basic>
+            <jpa:one-to-many own="false" collection-type="java.util.List" connected-entity-id="_14651421148737" connected-attribute-id="_146514211487969" visibile="true" name="courrierCollection" id="_146514211487977"/>
+            <jpa:one-to-many own="false" collection-type="java.util.List" connected-entity-id="_14651421148749" connected-attribute-id="_146514211487990" visibile="true" name="courrierdepartCollection" id="_146514211487978"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_146514211487971">
+                <jpa:column name="ID" unique="false" nullable="false" insertable="true" updatable="true" table="contact"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:table name="contact"/>
+    </jpa:entity>
+    <jpa:entity xre="false" compositePrimaryKeyClass="CourrierdepartPK" sm="false" abs="false" class="Courrierdepart" visibile="true" minimized="false" rootElement="_14651421148341" id="_14651421148749">
+        <jpa:attributes>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="contenu" id="_146514211487980">
+                <jpa:column name="CONTENU" unique="false" nullable="true" insertable="true" updatable="true" table="courrierdepart" length="255"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="java.util.Date" visibile="true" name="datedepart" id="_146514211487981">
+                <jpa:column name="DATEDEPART" unique="false" nullable="true" insertable="true" updatable="true" table="courrierdepart"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="nature" id="_146514211487982">
+                <jpa:column name="NATURE" unique="false" nullable="true" insertable="true" updatable="true" table="courrierdepart" length="255"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="java.math.BigInteger" visibile="true" name="numordre" id="_146514211487983">
+                <jpa:column name="NUMORDRE" unique="false" nullable="true" insertable="true" updatable="true" table="courrierdepart"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="objet" id="_146514211487984">
+                <jpa:column name="OBJET" unique="false" nullable="true" insertable="true" updatable="true" table="courrierdepart" length="255"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="type" id="_146514211487985">
+                <jpa:column name="TYPE" unique="false" nullable="true" insertable="true" updatable="true" table="courrierdepart" length="255"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="Boolean" visibile="true" name="validationcabinet" id="_146514211487986">
+                <jpa:column name="VALIDATIONCABINET" unique="false" nullable="true" insertable="true" updatable="true" table="courrierdepart"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="Boolean" visibile="true" name="validationdai" id="_146514211487987">
+                <jpa:column name="VALIDATIONDAI" unique="false" nullable="true" insertable="true" updatable="true" table="courrierdepart"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="Boolean" visibile="true" name="validationsg" id="_146514211487988">
+                <jpa:column name="VALIDATIONSG" unique="false" nullable="true" insertable="true" updatable="true" table="courrierdepart"/>
+            </jpa:basic>
+            <jpa:many-to-one primaryKey="false" connected-entity-id="_14651421148738" connected-attribute-id="_146514211487978" visibile="true" name="contactId" id="_146514211487990">
+                <jpa:join-column name="CONTACT_ID" rc="ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_146514211487979">
+                <jpa:column name="ID" unique="false" nullable="false" insertable="true" updatable="true" table="courrierdepart"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:table name="courrierdepart"/>
+    </jpa:entity>
+    <jpa:entity xre="false" compositePrimaryKeyClass="UserPK" sm="false" abs="false" class="User" visibile="true" minimized="false" rootElement="_14651421148341" id="_146514211487410">
+        <jpa:attributes>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="language" id="_146514211487992">
+                <jpa:column name="LANGUAGE" unique="false" nullable="true" insertable="true" updatable="true" table="user" length="255"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="Boolean" visibile="true" name="logged" id="_146514211487993">
+                <jpa:column name="LOGGED" unique="false" nullable="true" insertable="true" updatable="true" table="user"/>
+            </jpa:basic>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="password" id="_146514211487994">
+                <jpa:column name="PASSWORD" unique="false" nullable="true" insertable="true" updatable="true" table="user" length="255"/>
+            </jpa:basic>
+            <jpa:id attribute-type="String" visibile="true" name="userId" id="_146514211487991">
+                <jpa:column name="user_id" unique="false" nullable="false" insertable="true" updatable="true" table="user" length="255"/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:table name="user"/>
+    </jpa:entity>
+    <jpa:entity xre="false" compositePrimaryKeyClass="PiecejointePK" sm="false" abs="false" class="Piecejointe" visibile="true" minimized="false" rootElement="_14651421148341" id="_146514211487411">
+        <jpa:attributes>
+            <jpa:basic optional="true" attribute-type="String" visibile="true" name="logo" id="_146514211487998">
+                <jpa:column name="LOGO" unique="false" nullable="true" insertable="true" updatable="true" table="piecejointe" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one primaryKey="false" connected-entity-id="_14651421148737" connected-attribute-id="_146514211487970" visibile="true" name="cOURRIERcourrierid" id="_146514211487999">
+                <jpa:join-column name="COURRIER_COURRIER_ID" rc="COURRIER_ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_146514211487997">
+                <jpa:column name="ID" unique="false" nullable="false" insertable="true" updatable="true" table="piecejointe"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:table name="piecejointe"/>
+    </jpa:entity>
+    <jpa:diagram>
+        <plane elementRef="_14651421148341">
+            <shape elementRef="_14651421148736">
+                <Bounds x="424.0" y="390.0" width="206.0" height="126.0"/>
+            </shape>
+            <shape elementRef="_14651421148737">
+                <Bounds x="466.0" y="846.0" width="216.0" height="336.0"/>
+            </shape>
+            <shape elementRef="_14651421148738">
+                <Bounds x="99.0" y="495.0" width="189.0" height="231.0"/>
+            </shape>
+            <shape elementRef="_14651421148749">
+                <Bounds x="758.0" y="846.0" width="180.0" height="294.0"/>
+            </shape>
+            <shape elementRef="_146514211487410">
+                <Bounds x="424.0" y="102.0" width="128.0" height="134.0"/>
+            </shape>
+            <shape elementRef="_146514211487411">
+                <Bounds x="82.0" y="1056.0" width="171.0" height="126.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>
