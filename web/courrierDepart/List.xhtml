@@ -15,87 +15,102 @@
         </ui:define>
 
         <ui:define name="body">
-            <b:container>
-                <h:form id="CourrierDepartListForm">
-                    <b:panel title="#{bundle.ListCourrierDepartTitle}">
-                        <p:dataTable id="datalist" value="#{courrierDepartController.items}" var="item"
-                                     selectionMode="single" selection="#{courrierDepartController.selected}"
-                                     paginator="true"
-                                     rowKey="#{item.id}"
-                                     rows="10"
-                                     rowsPerPageTemplate="10,20,30,40,50"
-                                     >
+            <b:row styleClass="show-grid">
+                <b:container>
+                    <b:column span="2">
+                        <h:form id="courrierMenu">
+                            <b:buttonGroup orientation="vertical" pull="left">
+                                <b:label text="Courriers" severity="warning"/>
+                                <b:commandButton value="Mes courriers" action="/courrierDepart/List?faces-redirect=true" style="background-color: #279B61;color: white" icon-awesome="envelope"></b:commandButton>
+                                <b:commandButton value="Courriers Envoyés" action="/courrierDepart/ListEnvoyes?faces-redirect=true" icon="envelope" style="background-color: royalblue;color: white"></b:commandButton>
+                                <p:separator></p:separator>
+                                <b:label text="Actions" severity="warning"/>
+                                <b:commandButton id="validation"   style="background-color: #279B61;color: white" icon="check" value="#{bundle.Validation}" update=":CourrierDepartListForm" actionListener="#{courrierDepartController.validate()}" disabled="#{userController.droits('ca')}"/>
+                            </b:buttonGroup>
+                        </h:form>
+                    </b:column>
+                    <b:column span="10">
+                        <h:form id="CourrierDepartListForm">
+                            <b:panel title="#{bundle.ListCourrierDepartTitle}">
+                                <p:dataTable id="datalist" value="#{courrierDepartController.items}" var="item"
+                                             selectionMode="single" selection="#{courrierDepartController.selected}"
+                                             paginator="true"
+                                             rowKey="#{item.id}"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             >
 
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton :courrierMenu:validation"/>
+                                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton :courrierMenu:validation"/>
 
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierDepartTitle_contact}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.contact}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierDepartTitle_id}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.id}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierDepartTitle_dateDepart}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.dateDepart}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </h:outputText>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierDepartTitle_numOrdre}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.numOrdre}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierDepartTitle_type}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.type}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierDepartTitle_nature}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.nature}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierDepartTitle_contenu}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.contenu}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierDepartTitle_objet}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.objet}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierDepartTitle_uniteDepart}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.uniteDepart}"/>
-                            </p:column>
-                            <f:facet name="footer">
-                                <b:commandButton id="createButton" look="primary" icon="plus"   value="#{bundle.Create}" actionListener="#{courrierDepartController.prepareCreate}" update=":CourrierDepartCreateForm" oncomplete="PF('CourrierDepartCreateDialog').show()"/>
-                                <b:commandButton id="viewButton"   look="info" icon="search" value="#{bundle.View}" update=":CourrierDepartViewForm" oncomplete="PF('CourrierDepartViewDialog').show()" disabled="#{empty courrierDepartController.selected}"/>
-                                <b:commandButton id="editButton"   look="warning" icon="pencil" value="#{bundle.Edit}" update=":CourrierDepartEditForm" oncomplete="PF('CourrierDepartEditDialog').show()" disabled="#{empty courrierDepartController.selected}"/>
-                                <b:commandButton id="deleteButton" look="danger" icon="trash"  value="#{bundle.Delete}" actionListener="#{courrierDepartController.destroy}" update=":growl,datalist" disabled="#{empty courrierDepartController.selected}"/>
-                                <b:commandButton id="validation"   look="success" icon="check" value="#{bundle.Validation}" update=":CourrierDepartListForm:datalist" actionListener="#{courrierDepartController.validate()}" disabled="#{userController.droits('ca')}"/>
-                            </f:facet>
-                        </p:dataTable>
-                    </b:panel>
-                </h:form>
-            </b:container>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierDepartTitle_contact}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.contact}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierDepartTitle_id}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.id}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierDepartTitle_dateDepart}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.dateDepart}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierDepartTitle_numOrdre}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.numOrdre}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierDepartTitle_type}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.type}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierDepartTitle_nature}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nature}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierDepartTitle_contenu}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.contenu}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierDepartTitle_objet}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.objet}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierDepartTitle_uniteDepart}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.uniteDepart}"/>
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <b:commandButton id="createButton" look="primary" icon="plus"   value="#{bundle.Create}" actionListener="#{courrierDepartController.prepareCreate}" update=":CourrierDepartCreateForm" oncomplete="PF('CourrierDepartCreateDialog').show()"/>
+                                        <b:commandButton id="viewButton"   look="info" icon="search" value="#{bundle.View}" update=":CourrierDepartViewForm" oncomplete="PF('CourrierDepartViewDialog').show()" disabled="#{empty courrierDepartController.selected}" />
+                                        <b:commandButton id="editButton"   look="warning" icon="pencil" value="#{bundle.Edit}" update=":CourrierDepartEditForm" oncomplete="PF('CourrierDepartEditDialog').show()" disabled="#{empty courrierDepartController.selected}" rendered="#{!userController.droits('tous')}"/>
+                                        <b:commandButton id="deleteButton" look="danger" icon="trash"  value="#{bundle.Delete}" actionListener="#{courrierDepartController.destroy}" update=":growl,datalist" disabled="#{empty courrierDepartController.selected}" rendered="#{!userController.droits('tous')}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </b:panel>
+                        </h:form>
+                    </b:column>
+                </b:container>
+            </b:row>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>

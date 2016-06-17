@@ -15,95 +15,116 @@
         </ui:define>
 
         <ui:define name="body">
-            <b:container>
-                <h:form>
-                    <b:tabLinks>
-                        <b:navLink href="http://www.bootsfaces.net" value="BootsFaces" icon="globe" iconAlign="right"/>
-                        <b:navLink></b:navLink>
-                        <b:navLink href="http://getbootstrap.com/components/#navbar" value="Bootstrap" icon="link"></b:navLink>
-                    </b:tabLinks>
-                </h:form>
-                <h:form id="CourrierInterneListForm">
-                    <b:panel title="#{bundle.ListCourrierInterneTitle}" style="text-align: center"  look="primary">
-                        <p:dataTable id="datalist" value="#{courrierInterneController.items}" var="item"
-                                     selectionMode="single" selection="#{courrierInterneController.selected}"
-                                     paginator="true"
-                                     rowKey="#{item.id}"
-                                     rows="10"
-                                     rowsPerPageTemplate="10,20,30,40,50"
-                                     >
+            <b:row styleClass="show-grid">
+                <b:container>
+                    <b:column span="2">
+                        <h:form id="courrierMenu">
+                            <b:buttonGroup orientation="vertical" pull="left">
+                                <b:label text="Courriers" severity="warning"/>
+                                <b:commandButton value="Mes courriers" action="/courrierInterne/List?faces-redirect=true" style="background-color: #279B61;color: white"><b:icon name="envelope"></b:icon></b:commandButton>
+                                <b:commandButton value="Mes courriers Favoris" action="/courrierInterne/ListFavoris?faces-redirect=true" icon="envelope" style="background-color: royalblue;color: white"></b:commandButton>
+                                <b:commandButton value="Courriers a Valider" action="/courrierInterne/ListAValide?faces-redirect=true" style="background-color: #FFCC33;color: white" rendered="#{!userController.droits('tca')}"></b:commandButton>
+                                <p:separator></p:separator>
+                                <b:label text="Actions" severity="warning"/>
+                                <b:commandButton id="numeroOrdre" icon="pencil" style="background-color: #279B61;color: white"  value="#{bundle.NumOrdre}"  update=":CourrierInterneEditNForm" oncomplete="PF('CourrierInterneEditNDialog').show()" rendered="#{!userController.droits('s')}"/>
+                                <b:commandButton id="ajoutTraitement" style="background-color: royalblue;color: white" icon="plus"   value="#{bundle.ajoutTraitement}" update=":TraitementCreateForm" oncomplete="PF('TraitementCreateDialog').show()" disabled="#{userController.droits('tca') or courrierInterneController.selected.id == null }"/> 
+                            </b:buttonGroup>
+                        </h:form>
+                    </b:column>
+                    <b:column span="10">
+                        <h:form id="CourrierInterneListForm">
+                            <b:panel title="#{bundle.ListCourrierInterneTitle}" style="text-align: center"  look="primary">
+                                <p:dataTable id="datalist" value="#{courrierInterneController.items}" var="item"
+                                             selectionMode="single" selection="#{courrierInterneController.selected}"
+                                             paginator="true"
+                                             rowKey="#{item.id}"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             rowStyleClass="#{courrierInterneController.courrierLusRow(item)}"
+                                             >
 
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton numeroOrdre"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton numeroOrdre"/>
+                                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton 
+                                            :courrierMenu:numeroOrdre :courrierMenu:ajoutTraitement"/>
+                                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton 
+                                            :courrierMenu:numeroOrdre :courrierMenu:ajoutTraitement"/>
 
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierInterneTitle_id}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.id}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierInterneTitle_dateDepart}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.dateDepart}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </h:outputText>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierInterneTitle_numOrdre}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.numOrdre}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierInterneTitle_type}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.type}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierInterneTitle_nature}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.nature}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierInterneTitle_contenu}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.contenu}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierInterneTitle_objet}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.objet}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCourrierInterneTitle_uniteDepart}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.uniteDepart}"/>
-                            </p:column>
-                            <f:facet name="footer">
-                                <b:commandButton value="Courrier a valider" icon="envelope" look="primary" action="/courrierInterne/ListAValide?faces-redirect=true"/>
-                                <b:commandButton id="createButton" look="success" icon="plus"   value="#{bundle.Create}" actionListener="#{courrierInterneController.prepareCreate}" update=":CourrierInterneCreateForm" oncomplete="PF('CourrierInterneCreateDialog').show()"/>
-                                <b:commandButton id="viewButton"  look="warning" icon="search" value="#{bundle.View}" update=":CourrierInterneViewForm" oncomplete="PF('CourrierInterneViewDialog').show()" disabled="#{empty courrierInterneController.selected}"/>
-                                <b:commandButton id="editButton"   icon="pencil" value="#{bundle.Edit}" update=":CourrierInterneEditForm" oncomplete="PF('CourrierInterneEditDialog').show()" disabled="#{empty courrierInterneController.selected}" style="background-color: royalblue;color: white"/>
-                                <b:commandButton id="deleteButton" look="danger" icon="trash"  value="#{bundle.Delete}" actionListener="#{courrierInterneController.destroy}" update=":growl,datalist" disabled="#{empty courrierInterneController.selected}"/>
-                                <b:commandButton look="info" id="numeroOrdre" icon="pencil"  value="#{bundle.NumOrdre}"  update=":CourrierInterneEditNForm" oncomplete="PF('CourrierInterneEditNDialog').show()" rendered="#{!userController.droits('s')}"/>
-                            </f:facet>
-                        </p:dataTable>
-                    </b:panel>
-                </h:form>
-            </b:container>
-            <ui:include src="ListSuiviUA.xhtml"/>
 
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierTitle_id}"/>
+                                        </f:facet>
+                                        <b:commandButton id="yf" value="" icon="star" style="background-color: #dbdbdb ;color: #FFCC33" rendered="#{courrierInterneController.courrierFavoris(item)}"/>
+                                        <b:commandButton id="nf" actionListener="#{courrierInterneController.FavoriserCourrier(item)}" update=":CourrierInterneListForm" value="" icon="star" style="background-color: #dbdbdb ;color: white" rendered="#{!courrierInterneController.courrierFavoris(item)}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierInterneTitle_id}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.id}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierInterneTitle_dateDepart}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.dateDepart}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierInterneTitle_numOrdre}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.numOrdre}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierInterneTitle_type}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.type}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierInterneTitle_nature}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nature}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierInterneTitle_contenu}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.contenu}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierInterneTitle_objet}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.objet}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierInterneTitle_uniteDepart}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.uniteDepart}"/>
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <b:commandButton id="createButton" look="success" icon="plus"   value="#{bundle.Create}" actionListener="#{courrierInterneController.prepareCreate}" update=":CourrierInterneCreateForm" oncomplete="PF('CourrierInterneCreateDialog').show()"/>
+                                        <b:commandButton id="viewButton" actionListener="#{courrierInterneController.LireCourrier()}"  look="warning" icon="search" value="#{bundle.View}" update=":CourrierInterneViewForm" oncomplete="PF('CourrierInterneViewDialog').show()" disabled="#{courrierInterneController.selected.id == null}"/>
+                                        <b:commandButton id="editButton"   icon="pencil" value="#{bundle.Edit}" update=":CourrierInterneEditForm" oncomplete="PF('CourrierInterneEditDialog').show()" rendered="#{!userController.droits('tous')}" style="background-color: royalblue;color: white"/>
+                                        <b:commandButton id="deleteButton" look="danger" icon="trash"  value="#{bundle.Delete}" actionListener="#{courrierInterneController.destroy}" update=":growl,datalist" rendered="#{!userController.droits('tous')}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </b:panel>
+                        </h:form>
+                        <ui:include src="ListSuiviUA.xhtml"/>
+                        <ui:include src="ListTraitement.xhtml"/>
+                    </b:column>
+                </b:container>
+            </b:row>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
             <ui:include src="NumOrdre.xhtml"/>
+            <ui:include src="CreateTraitement.xhtml"/>
         </ui:define>
     </ui:composition>
 

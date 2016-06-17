@@ -21,18 +21,22 @@
         <h:outputScript library="js" name="materialize.min.js"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <!--        <h:outputStylesheet library="css" name="materialize.min.css"></h:outputStylesheet>-->
+
+
     </h:head>
     <h:body>
-        <div id="loader-wrapper">
-            <div class="cssload-container">
-                <div class="cssload-circle-1">
-                    <div class="cssload-circle-2">
-                        <div class="cssload-circle-3">
-                            <div class="cssload-circle-4">
-                                <div class="cssload-circle-5">
-                                    <div class="cssload-circle-6">
-                                        <div class="cssload-circle-7">
-                                            <div class="cssload-circle-8">
+        <!--        <div id="loader-wrapper">
+                    <div class="cssload-container">
+                        <div class="cssload-circle-1">
+                            <div class="cssload-circle-2">
+                                <div class="cssload-circle-3">
+                                    <div class="cssload-circle-4">
+                                        <div class="cssload-circle-5">
+                                            <div class="cssload-circle-6">
+                                                <div class="cssload-circle-7">
+                                                    <div class="cssload-circle-8">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -40,27 +44,29 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="loader-section section-left"></div>
-            <div class="loader-section section-right"></div>
-        </div>
+                    <div class="loader-section section-left"></div>
+                    <div class="loader-section section-right"></div>
+                </div>-->
         <f:view locale="#{languageCTR.language}">
             <p:growl id="growl" life="3000" />
-            <h:form>
-                <b:navBar brand="Gestion du Courrier" brandImg="resources/images/logo.png" brand-href="#" inverse="true" >
+            <h:form id="menuBar">
+                <b:navBar brand="#{bundle.AppName}"  brand-href="#" inverse="true" >
                     <b:navbarLinks>
                         <b:navLink value="#{userController.connectedUser.id.toUpperCase()}" href="#" icon="user"></b:navLink>
-                        <b:navLink value="#{bundle.Home}" outcome="/template.xhtml" icon="home"/>
-                        <b:dropMenu value="#{bundle.Maintenance}" icon="briefcase"> 
-                            <b:navLink value="Consigne" outcome="/consigne/List.xhtml" icon="bookmark"/>
-                            <b:navLink value="Courrier" outcome="/courrier/List.xhtml" icon="envelope" ><b:badge value="1" style="color: white;"  styleClass="red" /></b:navLink>
-                            <b:navLink value="Courrier Interne" outcome="/courrierInterne/List.xhtml" icon="envelope" />
+                        <b:navLink value="#{bundle.Home}" outcome="/first.xhtml" icon="home"/>
+                        <b:dropMenu value="#{bundle.Courrier}" iconAwesome="envelope" >
+                            <b:navLink value="Courrier Arrivée" outcome="/courrier/List.xhtml" icon="envelope" ><b:badge value="#{courrierController.nombreCourrierNonLus()}" rendered="#{courrierController.nombreCourrierNonLus()!=0}" style="color: white;"  styleClass="red" /></b:navLink>
+                            <b:navLink value="Courrier Interne" outcome="/courrierInterne/List.xhtml" icon="envelope"><b:badge value="#{courrierInterneController.nombreCourrierNonLus()}" rendered="#{courrierInterneController.nombreCourrierNonLus()!=0}" style="color: white;"  styleClass="red" /></b:navLink>
                             <b:navLink value="Courrier Depart" outcome="/courrierDepart/List.xhtml" icon="envelope" />
-                            <b:navLink value="PieceJointe" outcome="/pieceJointe/List.xhtml" icon="paperclip" disabled="#{userController.droits('tous')}" />
-                            <b:navLink value="Gestion des Roles" icon="filter" outcome="/admin/role/List.xhtml" disabled="#{userController.droits('tous')}" />
-                            <b:navLink value="Gestion des Unités Administratives" icon="globe" outcome="/admin/uniteAdministrative/List.xhtml" disabled="#{userController.droits('tous')}" />
-                            <b:navLink value="Gestion des utilisateurs" outcome="/admin/user/List.xhtml" icon="user" disabled="#{userController.droits('tous')}" ></b:navLink>
+                        </b:dropMenu>
+                        <b:dropMenu value="#{bundle.Maintenance}" icon="briefcase" rendered="#{!userController.droits('tous')}"> 
+                            <b:navLink value="Consigne" outcome="/admin/consigne/List.xhtml" icon="bookmark"/>
+                            <b:navLink value="Traitement" outcome="/admin/traitement/List.xhtml" icon="bookmark"/>
+                            <b:navLink value="Contact" outcome="/admin/contact/List.xhtml" icon="bookmark"/>
+                            <b:navLink value="PieceJointe" outcome="/admin/pieceJointe/List.xhtml" icon="paperclip"  />
+                            <b:navLink value="Gestion des Roles" icon="filter" outcome="/admin/role/List.xhtml"  />
+                            <b:navLink value="Gestion des Unités Administratives" icon="globe" outcome="/admin/uniteAdministrative/List.xhtml"  />
+                            <b:navLink value="Gestion des utilisateurs" outcome="/admin/user/List.xhtml" icon="user"  ></b:navLink>
                         </b:dropMenu>
                         <b:dropMenu value="#{bundle.Parametres}" icon="cog">
                             <b:navLink value="Changer Mon mot de passe" outcome="/Parametres/ChangePassword.xhtml" icon="wrench"/>
@@ -68,10 +74,30 @@
                         </b:dropMenu>
                     </b:navbarLinks>
                     <b:navbarLinks pull="right">
-                        <b:navCommandLink value="#{bundle.Logout}" action="#{userController.seDeconnecter()}" icon="log-out" />
+                        <b:navCommandLink value="#{bundle.Logout}" action="#{userController.seDeconnecter()}" icon="log-out"   />
                     </b:navbarLinks>
-
                 </b:navBar>
+            </h:form>
+            <h:form>
+                <b:container>
+                    <b:carousel id="tiovivo" style="width:100%;height:500px" interval="2500">
+                        <b:carouselItem >
+                            <img src="resources/images/mail1.jpg" alt="Valladolid" style="width:100%;height:500px" />
+                        </b:carouselItem>
+                        <b:carouselItem caption="WILAYA DE MARRAKECH">
+                            <img src="resources/images/mail2.jpg" alt="Valladolid" style="width:100%;height:500px" />
+                        </b:carouselItem>
+                        <b:carouselItem caption="Menara DE MARRAKECH">
+                            <img src="resources/images/mail3.jpg" alt="Valladolid" style="width:100%;height:500px" />
+                        </b:carouselItem>
+                        <b:carouselItem caption="Koutoubia DE MARRAKECH">
+                            <img src="resources/images/mail4.jpg" alt="Valladolid" style="width:100%;height:500px" />
+                        </b:carouselItem>
+                        <b:carouselItem caption="Jamee el Fnaa DE MARRAKECH">
+                            <img src="resources/images/mail5.jpg" alt="Valladolid" style="width:100%;height:500px" />
+                        </b:carouselItem>
+                    </b:carousel>
+                </b:container>
             </h:form>
             <!--            <ui:insert name="body"/>-->
             <!--            <h:form>

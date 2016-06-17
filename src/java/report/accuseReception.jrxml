@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Bilan Compte" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="4e9633ef-f6da-4aca-a239-827e28c0ebaa">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nom" class="java.lang.String"/>
+	<parameter name="prenom" class="java.lang.String"/>
+	<parameter name="dateNaissance" class="java.util.Date"/>
+	<parameter name="filiere" class="java.lang.String"/>
+	<parameter name="cne" class="java.lang.String"/>
+	<parameter name="cycle" class="java.lang.String"/>
+	<parameter name="anneeUniversitaire" class="java.lang.String"/>
+	<parameter name="lieuNaissance" class="java.lang.String"/>
+	<parameter name="a" class="java.lang.String"/>
+	<parameter name="sysDate" class="java.util.Date"/>
+	<parameter name="parameter1" class="java.lang.Number"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="169" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="6d0d4f23-d195-4292-8c6a-4e647ff98c5f" x="130" y="131" width="289" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Accusé de récéption]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d0d4f23-d195-4292-8c6a-4e647ff98c5f" x="0" y="59" width="213" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ROYAUME DU MAROC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d0d4f23-d195-4292-8c6a-4e647ff98c5f" x="0" y="83" width="213" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[MINISTERE DE L'INTERIEUR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d0d4f23-d195-4292-8c6a-4e647ff98c5f" x="0" y="107" width="213" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[PREFECTURE DE MARRAKECH]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="144f8cb8-95de-4fed-aeca-64614b2d459f" x="213" y="19" width="124" height="107"/>
+				<imageExpression><![CDATA["C:\\Users\\Yassine\\Desktop\\header.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="302" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="61" y="131" width="52" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Cycle  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="258" y="200" width="97" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Marrakech, le]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement uuid="f437ecd4-c08a-4f90-acb8-f81c559eada2" x="146" y="255" width="246" height="47"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="2of7" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$P{parameter1}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="a5e5b05f-7865-4c93-ac39-328b1b91332e" x="355" y="200" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="7" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="6" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="3" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="8" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="6" splitType="Stretch"/>
+	</summary>
+</jasperReport>

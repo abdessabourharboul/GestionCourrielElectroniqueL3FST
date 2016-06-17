@@ -20,15 +20,15 @@
                         <h:form id="courrierMenu">
                             <b:buttonGroup orientation="vertical" pull="left">
                                 <b:label text="Courriers" severity="warning"/>
-                                <b:commandButton value="Mes courriers" style="background-color: #279B61;color: white"><b:icon name="envelope"></b:icon></b:commandButton>
-                                <b:commandButton value="Mes courriers Favoris" icon="envelope" style="background-color: royalblue;color: white"></b:commandButton>
-                                <b:commandButton value="Courriers a Valider" style="background-color: #FFCC33;color: white"></b:commandButton>
+                                <b:commandButton value="Mes courriers" action="/courrier/List?faces-redirect=true" style="background-color: #279B61;color: white" icon-awesome="envelope"></b:commandButton>
+                                <b:commandButton value="Mes courriers Favoris" action="/courrier/ListFavoris?faces-redirect=true" icon="envelope" style="background-color: royalblue;color: white"></b:commandButton>
                                 <p:separator></p:separator>
                                 <b:label text="Actions" severity="warning"/>
-                                <b:commandButton id="ajoutConsigne" style="background-color: #279B61;color: white" icon="plus"   value="#{bundle.ajoutConsigne}" update=":ConsigneCreateForm" oncomplete="PF('ConsigneCreateDialog').show()" disabled="#{userController.droits('ca')}"/>
-                                <b:commandButton id="ajoutTraitement" style="background-color: royalblue;color: white" icon="plus"   value="#{bundle.ajoutTraitement}" update=":TraitementCreateForm" oncomplete="PF('TraitementCreateDialog').show()" disabled="#{userController.droits('tca')}"/> 
-                                <b:commandButton id="validation" style="background-color: #FFCC33;color: white"   icon="check" value="#{bundle.Validation}" update=":CourrierListForm, :ConsigneListForm" actionListener="#{courrierController.validate()}" disabled="#{userController.droits('ca')}"/>
-                                <b:commandButton id="reaffectationButton"  style="background-color: #CC3333;color: white"  icon="pencil" value="#{bundle.Reaffectation}" update=":CourrierReaffectationForm" oncomplete="PF('CourrierReaffectationDialog').show()" disabled="#{userController.droits('ca')}"/>
+                                <b:commandButton id="ajoutConsigne" style="background-color: #279B61;color: white" icon="plus"   value="#{bundle.ajoutConsigne}" update=":ConsigneCreateForm" oncomplete="PF('ConsigneCreateDialog').show()" disabled="#{userController.droits('ca') or courrierController.selected.id == null}"/>
+                                <b:commandButton id="ajoutTraitement" style="background-color: royalblue;color: white" icon="plus"   value="#{bundle.ajoutTraitement}" update=":TraitementCreateForm" oncomplete="PF('TraitementCreateDialog').show()" disabled="#{userController.droits('tca') or courrierController.selected.id == null}"/> 
+                                <b:commandButton id="validation" style="background-color: #FFCC33;color: white"   icon="check" value="#{bundle.Validation}" update=":CourrierListForm, :ConsigneListForm,:menuBar" actionListener="#{courrierController.validate()}" disabled="#{userController.droits('ca') or courrierController.selected.id == null}"/>
+                                <b:commandButton id="reaffectationButton"  style="background-color: #CC3333;color: white"  icon="pencil" value="#{bundle.Reaffectation}" update=":CourrierReaffectationForm" oncomplete="PF('CourrierReaffectationDialog').show()" disabled="#{userController.droits('ca') or courrierController.selected.id == null}"/>
+                                <b:commandButton id="cloture" actionListener="#{courrierController.CloturerCourrier()}"  style="background-color: #279B61;color: white"  icon="folder-close" value="#{bundle.Cloturer}" disabled="#{userController.droits('ca') or courrierController.selected.id == null or courrierController.droitCloture()==false}"/>
                             </b:buttonGroup>
                         </h:form>
                     </b:column>
@@ -37,18 +37,45 @@
 
                         <h:form id="CourrierListForm">
                             <b:panel look="primary" title="#{bundle.ListCourrierTitle}" style="text-align: center">
+                                <h:commandLink>
+                                    <p:graphicImage  url="/resources/images/excel.png" />
+                                    <p:dataExporter type="xls" target="datalist" fileName="docs" pageOnly="true"/>
+                                </h:commandLink>
 
+                                <h:commandLink>
+                                    <p:graphicImage url="/resources/images/pdf.png" />
+                                    <p:dataExporter type="pdf" target="datalist" fileName="docs" pageOnly="true" />
+                                </h:commandLink>
                                 <p:dataTable id="datalist" value="#{courrierController.items}" var="item"
                                              selectionMode="single" selection="#{courrierController.selected}"
                                              paginator="true"
                                              rowKey="#{item.id}"
                                              rows="10"
-                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             rowsPerPageTemplate="10,20,30,40,50" 
+                                             rowStyleClass="#{courrierController.courrierLusRow(item)}"
                                              >
 
-                                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton :courrierMenu:ajoutConsigne :courrierMenu:validation :courrierMenu:reaffectationButton :courrierMenu:ajoutTraitement"/>
-                                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton :courrierMenu:ajoutConsigne :courrierMenu:validation :courrierMenu:reaffectationButton :courrierMenu:ajoutTraitement"/>
 
+
+                                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton
+                                            :courrierMenu:ajoutConsigne :courrierMenu:validation :courrierMenu:reaffectationButton
+                                            :courrierMenu:ajoutTraitement :courrierMenu:cloture"/>
+                                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton
+                                            :courrierMenu:ajoutConsigne :courrierMenu:validation :courrierMenu:reaffectationButton
+                                            :courrierMenu:ajoutTraitement :courrierMenu:cloture"/>
+                                    <p:ajax event="rowDblselect" onsuccess="document.getElementById('CourrierListForm:datalist:viewButton').click();"/>
+
+
+
+
+
+                                    <p:column exportable="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCourrierTitle_id}"/>
+                                        </f:facet>
+                                        <b:commandButton id="yf" value="" icon="star" style="background-color: #dbdbdb ;color: #FFCC33" rendered="#{courrierController.courrierFavoris(item)}"/>
+                                        <b:commandButton id="nf" actionListener="#{courrierController.FavoriserCourrier(item)}" update=":CourrierListForm" value="" icon="star" style="background-color: #dbdbdb ;color: white" rendered="#{!courrierController.courrierFavoris(item)}"/>
+                                    </p:column>
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListCourrierTitle_id}"/>
@@ -103,15 +130,15 @@
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListCourrierTitle_contact}"/>
+                                            <h:outputText value="#{bundle.cloture}"/>
                                         </f:facet>
-
+                                        <h:outputText value="#{courrierController.clotures(item)}"/>
                                     </p:column>
                                     <f:facet name="footer">
                                         <b:commandButton id="createButton" look="success" icon="plus"   value="#{bundle.Create}" actionListener="#{courrierController.prepareCreate}" update=":CourrierCreateForm" oncomplete="PF('CourrierCreateDialog').show()" rendered="#{!userController.droits('s')}"/>
-                                        <b:commandButton id="viewButton" look="warning"  icon="search" value="#{bundle.View}" update=":CourrierViewForm" oncomplete="PF('CourrierViewDialog').show()" disabled="#{empty courrierController.selected}"/>
-                                        <b:commandButton id="editButton" look="primary"  icon="pencil" value="#{bundle.Edit}" update=":CourrierEditForm" oncomplete="PF('CourrierEditDialog').show()" rendered="#{!userController.droits('tous')}"/>
-                                        <b:commandButton id="deleteButton" look="danger" icon="trash"  value="#{bundle.Delete}" actionListener="#{courrierController.destroy}" update=":growl,datalist" rendered="#{!userController.droits('tous')}"/>
+                                        <b:commandButton id="viewButton" actionListener="#{courrierController.LireCourrier()}" look="warning"  icon="search" value="#{bundle.View}" update=":CourrierViewForm,:CourrierListForm" oncomplete="PF('CourrierViewDialog').show()" disabled="#{courrierController.selected.id ==null}" />
+                                        <b:commandButton id="editButton" look="primary"  icon="pencil" value="#{bundle.Edit}" update=":CourrierEditForm" oncomplete="PF('CourrierEditDialog').show()" rendered="#{!userController.droits('tous')}" disabled="#{courrierController.selected.id ==null}"/>
+                                        <b:commandButton id="deleteButton" look="danger" icon="trash"  value="#{bundle.Delete}" actionListener="#{courrierController.destroy}" update=":growl,datalist" rendered="#{!userController.droits('tous')}" disabled="#{courrierController.selected.id ==null}"/>
                                     </f:facet>
                                 </p:dataTable>
                             </b:panel>
@@ -119,7 +146,6 @@
                         <ui:include src="ListConsignes.xhtml"/>
                         <ui:include src="ListPJ.xhtml"/>
                         <ui:include src="ListTraitement.xhtml"/>
-
                     </b:column>
                 </b:container>
             </b:row>

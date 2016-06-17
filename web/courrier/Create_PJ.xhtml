@@ -13,8 +13,10 @@
                     <p:panelGrid columns="2" rendered="#{courrierController.pieceJointe != null}">
                         <p:outputLabel value="Photo :" for="photo" />
                         <p:panel>
-                            <p:fileUpload id="photo" fileUploadListener="#{courrierController.uploadEdit}" mode="advanced"
-                                          dragDropSupport="true" multiple="false" update="messages" sizeLimit="10000000"
+                            <p:fileUpload id="photo" fileUploadListener="#{courrierController.uploadEdit}"
+                                          mode="advanced"
+                                          dragDropSupport="true" multiple="false"
+                                          update="messages" sizeLimit="10000000"
                                           allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                             <p:growl id="messages" showDetail="true"/>
                         </p:panel>

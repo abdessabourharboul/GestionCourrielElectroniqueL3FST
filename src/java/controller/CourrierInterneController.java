@@ -1,12 +1,17 @@
 package controller;
 
+import bean.Courrier;
 import bean.CourrierInterne;
+import bean.Traitement;
 import bean.UniteAdministrative;
+import bean.User;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
+import controller.util.SessionUtil;
 import service.CourrierInterneFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -26,11 +31,86 @@ public class CourrierInterneController implements Serializable {
 
     @EJB
     private service.CourrierInterneFacade ejbFacade;
+    @EJB
+    private service.TraitementFacade traitementFacade;
     private List<CourrierInterne> items = null;
     private List<CourrierInterne> itemsav = null;
     private CourrierInterne selected;
     private List<UniteAdministrative> uniteAdministratives;
     private UniteAdministrative uniteAdministrative;
+    private Traitement traitement;
+    private List<Traitement> traitements;
+
+    public void saveTraitement() {
+        traitementFacade.saveTraitementInterne(getTraitement(), getSelected());
+        getTraitements().add(getTraitement());
+        traitement = null;
+    }
+
+    public Traitement getTraitement() {
+        if (traitement == null) {
+            traitement = new Traitement();
+        }
+        return traitement;
+    }
+
+    public void setTraitement(Traitement traitement) {
+        this.traitement = traitement;
+    }
+
+    public List<Traitement> getTraitements() {
+        if (getSelected().getId() != null) {
+            traitements = traitementFacade.findTraitementsByCourrierInterne(selected);
+        } else {
+            traitements = null;
+        }
+        return traitements;
+    }
+
+    public void setTraitements(List<Traitement> traitements) {
+        this.traitements = traitements;
+    }
+
+    public String courrierLusRow(CourrierInterne courrierInterne) {
+        if (courrierLus(courrierInterne) == true) {
+            return "lu";
+        } else if (courrierLus(courrierInterne) == false) {
+            return "white";
+        }
+        return "";
+    }
+
+    public int nombreCourrierNonLus() {
+        return ejbFacade.nombreCourrierInterneNonLus();
+    }
+
+    public List<CourrierInterne> Lus() {
+        return ejbFacade.Lus();
+    }
+
+    public void LireCourrier() {
+        ejbFacade.LireCourrier(getSelected());
+    }
+
+    public boolean courrierLus(CourrierInterne courrierInterne) {
+        return ejbFacade.courrierLus(courrierInterne);
+    }
+
+    public List<CourrierInterne> favoris() {
+        User user = SessionUtil.getConnectedUser();
+        if (user.getUniteAdministrative() == null) {
+            return new ArrayList<>();
+        }
+        return ejbFacade.favoris();
+    }
+
+    public void FavoriserCourrier(CourrierInterne courrierInterne) {
+        ejbFacade.FavoriserCourrier(courrierInterne);
+    }
+
+    public boolean courrierFavoris(CourrierInterne courrierInterne) {
+        return ejbFacade.courrierFavoris(courrierInterne);
+    }
 
     public UniteAdministrative getUniteAdministrative() {
         if (uniteAdministrative == null) {

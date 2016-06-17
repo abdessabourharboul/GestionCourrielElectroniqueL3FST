@@ -25,16 +25,45 @@
         <param-name>BootsFaces_THEME</param-name>
         <param-value>cerulean</param-value>
     </context-param>
-    <!--    <context-param>
-        <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
-        <param-value>false</param-value>
-    </context-param>-->
-    <!--    <context-param>
-        <param-name>facelets.SKIP_COMMENTS</param-name>
-        <param-value>true</param-value>
-    </context-param>-->
     <context-param>  
         <param-name>primefaces.THEME</param-name>  
         <param-value>bootstrap</param-value>  
     </context-param>  
+    
+    <filter>
+        <filter-name>LoginFilterAdmin</filter-name>
+        <filter-class>filter.LoginFilterAdmin</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilterAdmin</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/courrier/*</url-pattern>
+        <url-pattern>/courrierDepart/*</url-pattern>
+        <url-pattern>/courrierInterne/*</url-pattern>
+        <url-pattern>/photos/*</url-pattern>
+        <url-pattern>/Parametres/*</url-pattern>
+    </filter-mapping>
+<!--    <context-param>
+        <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>facelets.SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.apache.myfaces.ERROR_HANDLING</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/errorPage.xhtml</location>
+    </error-page>-->
 </web-app>

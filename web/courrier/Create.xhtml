@@ -22,6 +22,16 @@
             <h:form id="CourrierCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{courrierController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCourrierLabel_contact}" for="contact" />
+                        <p:selectOneMenu id="contact" filter="true" value="#{courrierController.selected.contact}" >
+                            <f:selectItem itemLabel="Selectionner un Contact" itemValue="#{courrierController.contact}"/>
+                            <f:selectItems value="#{contactController.itemsAvailableSelectOne}"
+                                           var="contactItem"
+                                           itemLabel="#{contactItem.nom}"
+                                           itemValue="#{contactItem}"/>
+                            <f:selectItem itemLabel="Add new one" itemValue=""/>
+                            <p:ajax event="change" listener="#{courrierController.needCreateContact()}" process="@this"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateCourrierLabel_id}" for="id" />
                         <p:inputText id="id" value="#{courrierController.selected.id}" title="#{bundle.CreateCourrierTitle_id}" />
                         <p:outputLabel value="#{bundle.CreateCourrierLabel_numOrdreExt}" for="numOrdreExt" />
@@ -36,16 +46,6 @@
                         <p:calendar id="dateArrivee" pattern="dd/MM/yyyy" value="#{courrierController.selected.dateArrivee}" title="#{bundle.EditCourrierTitle_dateArrivee}"  effect="fold"/>
                         <p:outputLabel value="#{bundle.CreateCourrierLabel_dateSaisie}" for="dateSaisie" />
                         <p:calendar id="dateSaisie" pattern="dd/MM/yyyy" value="#{courrierController.selected.dateSaisie}" title="#{bundle.EditCourrierTitle_dateSaisie}" effect="fold"/>
-                        <p:outputLabel value="#{bundle.CreateCourrierLabel_contact}" for="contact" />
-                        <p:selectOneMenu id="contact" filter="true" value="#{courrierController.selected.contact}" >
-                            <f:selectItem itemLabel="Selectionner un Contact" itemValue="#{courrierController.contact}"/>
-                            <f:selectItems value="#{contactController.itemsAvailableSelectOne}"
-                                           var="contactItem"
-                                           itemLabel="#{contactItem.nom}"
-                                           itemValue="#{contactItem}"/>
-                            <f:selectItem itemLabel="Add new one" itemValue=""/>
-                            <p:ajax event="change" listener="#{courrierController.needCreateContact()}" process="@this"/>
-                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.ListUa_affecte}" for="uniteAdministratives" />
                         <p:selectManyMenu id="uniteAdministratives" showCheckbox="true" value="#{courrierController.selected.uniteAdministratives}"  converter="uniteAdministrativeConverter">
                             <f:selectItems value="#{uniteAdministrativeController.items}"

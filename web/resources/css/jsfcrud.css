@@ -15,6 +15,15 @@
 .ui-button {
     margin-top: 10px !important;
 }
+
+.lu{
+    background-color: #cccccc;
+}
+
+/*.nonLu{
+    background-color:white!important;
+    background-image:none!important;
+}*/
 /*.red{
     background-color:#F44336 !important
 }*/

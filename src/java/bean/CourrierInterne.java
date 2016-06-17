@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
 import java.io.Serializable;
@@ -22,10 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
-/**
- *
- * @author asus
- */
 @Entity
 public class CourrierInterne implements Serializable {
 
@@ -45,6 +36,11 @@ public class CourrierInterne implements Serializable {
     private List<Consigne> consignes;
     @ManyToOne
     private UniteAdministrative uniteDepart;
+    @OneToMany(mappedBy = "courrierInterne")
+    private List<Traitement> traitements;
+    private boolean validationCabinet = false;
+    private boolean validationSg = false;
+    private boolean validationDai = false;
     @JoinTable(name = "courrierinterne_uniteadministrative",
             joinColumns = {
                 @JoinColumn(name = "courrierinterne_id", referencedColumnName = "courrierinterne_id")},
@@ -52,11 +48,42 @@ public class CourrierInterne implements Serializable {
                 @JoinColumn(name = "uniteadministrative_id", referencedColumnName = "uniteadministrative_id")})
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UniteAdministrative> uniteDestinataires;
-    @OneToMany(mappedBy = "courrierInterne")
-    private List<Traitement> traitements;
-    private boolean validationCabinet = false;
-    private boolean validationSg = false;
-    private boolean validationDai = false;
+    @JoinTable(name = "courrierInterneLus",
+            joinColumns = {
+                @JoinColumn(name = "courrierinterne_id", referencedColumnName = "courrierinterne_id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "uniteadministrative_id", referencedColumnName = "uniteadministrative_id")})
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UniteAdministrative> lu;
+    @JoinTable(name = "courrierInterneFavoris",
+            joinColumns = {
+                @JoinColumn(name = "courrierinterne_id", referencedColumnName = "courrierinterne_id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "uniteadministrative_id", referencedColumnName = "uniteadministrative_id")})
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UniteAdministrative> favoris;
+
+    public List<UniteAdministrative> getLu() {
+        if (lu == null) {
+            lu = new ArrayList<>();
+        }
+        return lu;
+    }
+
+    public void setLu(List<UniteAdministrative> lu) {
+        this.lu = lu;
+    }
+
+    public List<UniteAdministrative> getFavoris() {
+        if (favoris == null) {
+            favoris = new ArrayList<>();
+        }
+        return favoris;
+    }
+
+    public void setFavoris(List<UniteAdministrative> favoris) {
+        this.favoris = favoris;
+    }
 
     public List<Traitement> getTraitements() {
         if (traitements == null) {

@@ -29,6 +29,16 @@ public class CourrierDepartFacade extends AbstractFacade<CourrierDepart> {
     @EJB
     UniteAdministrativeFacade uniteAdministrativeFacade;
 
+    public List<CourrierDepart> envoyes() {
+        User user = SessionUtil.getConnectedUser();
+        if (user.getUniteAdministrative() == null) {
+            return new ArrayList<>();
+        } else {
+            String req = "SELECT co FROM CourrierDepart co WHERE co.uniteDepart.id = '" + user.getUniteAdministrative().getId() + "'";
+            return em.createQuery(req).getResultList();
+        }
+    }
+
     public UniteAdministrative suivi(String courrierID) {
         CourrierDepart loaded = find(courrierID);
         if (loaded != null) {

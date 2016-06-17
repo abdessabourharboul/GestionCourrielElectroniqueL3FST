@@ -59,6 +59,74 @@ public class CourrierController implements Serializable {
     private Traitement traitement;
     private List<Traitement> traitements;
 
+    public boolean isCloture(Courrier c) {
+        return ejbFacade.isCloture(c);
+    }
+
+    public String clotures(Courrier c) {
+        if (isCloture(c) == true) {
+            return "Cloturé";
+        }
+        return "En cours";
+    }
+
+    public void CloturerCourrier() {
+        ejbFacade.CloturerCourrier(getSelected());
+    }
+
+    public boolean droitCloture() {
+        return ejbFacade.droitCloture(getSelected());
+    }
+
+    public int nombreCourrierNonLus() {
+        return ejbFacade.nombreCourrierNonLus();
+    }
+
+    public List<Courrier> Lus() {
+        return ejbFacade.Lus();
+    }
+
+    public void LireCourrier() {
+        ejbFacade.LireCourrier(getSelected());
+    }
+
+    public boolean courrierLus(Courrier courrier) {
+        return ejbFacade.courrierLus(courrier);
+    }
+
+    public List<Courrier> favoris() {
+        User user = SessionUtil.getConnectedUser();
+        if (user.getUniteAdministrative() == null) {
+            return new ArrayList<>();
+        }
+        return ejbFacade.favoris();
+    }
+
+    public void FavoriserCourrier(Courrier courrier) {
+        ejbFacade.FavoriserCourrier(courrier);
+    }
+
+    public boolean courrierFavoris(Courrier courrier) {
+        return ejbFacade.courrierFavoris(courrier);
+    }
+
+    public String courrierLusRow(Courrier courrier) {
+        if (courrierLus(courrier) == true) {
+            return "lu";
+        } else if (courrierLus(courrier) == false) {
+            return "white";
+        }
+        return "";
+    }
+
+    public String alarStyleClass(Courrier courrier) {
+        if (courrier.getContact().getNom().equals("amine")) {
+            return "red";
+        } else {
+            return "black";
+        }
+    }
+
     public Contact getContact() {
         contact = new Contact();
         contact.setId(1L);
@@ -273,12 +341,7 @@ public class CourrierController implements Serializable {
     }
 
     public List<Courrier> getItems() {
-        User user = SessionUtil.getConnectedUser();
-        if (user.getUniteAdministrative() != null) {
-            return ejbFacade.getItems(items);
-        } else {
-            return ejbFacade.findAll();
-        }
+        return ejbFacade.getItems(items);
     }
 
     public CourrierController() {

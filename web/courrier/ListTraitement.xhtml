@@ -11,7 +11,7 @@
     <ui:composition>
         <p:outputPanel autoUpdate="true">
             <h:form id="TraitementListForm" rendered="#{courrierController.traitements.size()>0}">
-                <b:panel look="info" title="#{bundle.ListTraitementTitle}" style="text-align: center">
+                <b:panel look="primary" title="#{bundle.ListTraitementTitle}" style="text-align: center">
                     <p:dataTable id="datalistTraitement" value="#{courrierController.traitements}" var="itemt"
                                  selectionMode="single" selection="#{courrierController.traitement}"
                                  paginator="true"

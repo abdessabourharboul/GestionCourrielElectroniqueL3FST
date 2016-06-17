@@ -11,25 +11,33 @@
         <h:outputStylesheet name="css/jsfcrud.css"></h:outputStylesheet>
         <h:outputScript library="js" name="jsfcrud.js"></h:outputScript>
         <h:outputStylesheet library="css" name="badge.css"></h:outputStylesheet>
-        
+        <style>
+            #bodyimage{
+                background-image: url("#{resource['images/bg.png']}");  
+            }
+        </style>
     </h:head>
-    <h:body>
+    <h:body id="bodyimage">
         <f:view locale="#{languageCTR.language}">
             <p:growl id="growl" life="3000" />
-            <h:form>
+            <h:form id="menuBar">
                 <b:navBar brand="#{bundle.AppName}"  brand-href="#" inverse="true" >
                     <b:navbarLinks>
                         <b:navLink value="#{userController.connectedUser.id.toUpperCase()}" href="#" icon="user"></b:navLink>
-                        <b:navLink value="#{bundle.Home}" outcome="/template.xhtml" icon="home"/>
-                        <b:dropMenu value="#{bundle.Maintenance}" icon="briefcase"> 
-                            <b:navLink value="Consigne" outcome="/consigne/List.xhtml" icon="bookmark"/>
-                            <b:navLink value="Courrier" outcome="/courrier/List.xhtml" icon="envelope" ><b:badge value="1" style="color: white;"  styleClass="red" /></b:navLink>
-                            <b:navLink value="Courrier Interne" outcome="/courrierInterne/List.xhtml" icon="envelope" />
+                        <b:navLink value="#{bundle.Home}" outcome="/first.xhtml" icon="home"/>
+                        <b:dropMenu value="#{bundle.Courrier}" iconAwesome="envelope" >
+                            <b:navLink value="Courrier Arrivée" outcome="/courrier/List.xhtml" icon="envelope" ><b:badge value="#{courrierController.nombreCourrierNonLus()}" rendered="#{courrierController.nombreCourrierNonLus()!=0}" style="color: white;"  styleClass="red" /></b:navLink>
+                            <b:navLink value="Courrier Interne" outcome="/courrierInterne/List.xhtml" icon="envelope"><b:badge value="#{courrierInterneController.nombreCourrierNonLus()}" rendered="#{courrierInterneController.nombreCourrierNonLus()!=0}" style="color: white;"  styleClass="red" /></b:navLink>
                             <b:navLink value="Courrier Depart" outcome="/courrierDepart/List.xhtml" icon="envelope" />
-                            <b:navLink value="PieceJointe" outcome="/pieceJointe/List.xhtml" icon="paperclip" disabled="#{userController.droits('tous')}" />
-                            <b:navLink value="Gestion des Roles" icon="filter" outcome="/admin/role/List.xhtml" disabled="#{userController.droits('tous')}" />
-                            <b:navLink value="Gestion des Unités Administratives" icon="globe" outcome="/admin/uniteAdministrative/List.xhtml" disabled="#{userController.droits('tous')}" />
-                            <b:navLink value="Gestion des utilisateurs" outcome="/admin/user/List.xhtml" icon="user" disabled="#{userController.droits('tous')}" ></b:navLink>
+                        </b:dropMenu>
+                        <b:dropMenu value="#{bundle.Maintenance}" icon="briefcase" rendered="#{!userController.droits('tous')}"> 
+                            <b:navLink value="Consigne" outcome="/admin/consigne/List.xhtml" icon="bookmark"/>
+                            <b:navLink value="Traitement" outcome="/admin/traitement/List.xhtml" icon="bookmark"/>
+                            <b:navLink value="Contact" outcome="/admin/contact/List.xhtml" icon="bookmark"/>
+                            <b:navLink value="PieceJointe" outcome="/admin/pieceJointe/List.xhtml" icon="paperclip"  />
+                            <b:navLink value="Gestion des Roles" icon="filter" outcome="/admin/role/List.xhtml"  />
+                            <b:navLink value="Gestion des Unités Administratives" icon="globe" outcome="/admin/uniteAdministrative/List.xhtml"/>
+                            <b:navLink value="Gestion des utilisateurs" outcome="/admin/user/List.xhtml" icon="user"  ></b:navLink>
                         </b:dropMenu>
                         <b:dropMenu value="#{bundle.Parametres}" icon="cog">
                             <b:navLink value="Changer Mon mot de passe" outcome="/Parametres/ChangePassword.xhtml" icon="wrench"/>
@@ -39,12 +47,8 @@
                     <b:navbarLinks pull="right">
                         <b:navCommandLink value="#{bundle.Logout}" action="#{userController.seDeconnecter()}" icon="log-out"   />
                     </b:navbarLinks>
-
                 </b:navBar>
             </h:form>
-
-
-
             <ui:insert name="body"/>
             <!--            <h:form>
                             <b:navBar brand="Designed and built by ABDESSABOUR HARBOUL      © 2015-2016" 

@@ -11,26 +11,35 @@
             <h:outputText value="Changer Mot de Passe"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form>
-                <b:panel id="Francais" title="FRANCAIS" look="primary" >
-                    <center>
-                        <h:commandLink actionListener="#{languageCTR.actionLanguage('fr')}" >
-                            <p:graphicImage url="/resources/images/france.png"
-                                            width="50" height="50" 
-                                            alt="Francais"/>
-                        </h:commandLink>
-                    </center>
-                </b:panel>
-                <b:panel id="Arabe" title="ARABE" look="primary">
-                    <center>
-                        <h:commandLink actionListener="#{languageCTR.actionLanguage('ar')}" >
-                            <p:graphicImage url="/resources/images/arabe.png"
-                                            width="50" height="50" 
-                                            alt="Arabe"/>
-                        </h:commandLink>
-                    </center>
-                </b:panel>
-            </h:form>
+            <center><p:outputLabel value="Langues"></p:outputLabel></center>
+            <b:row>
+                <b:container>
+                    <b:column span="4"></b:column>
+                    <b:column span="4">
+                        <h:form>
+                            <b:panel id="Francais" title="FRANCAIS" look="primary" >
+                                <center>
+                                    <h:commandLink actionListener="#{languageCTR.actionLanguage('fr')}" >
+                                        <p:graphicImage url="/resources/images/france.png"
+                                                        width="50" height="50" 
+                                                        alt="Francais"/>
+                                    </h:commandLink>
+                                </center>
+                            </b:panel>
+                            <b:panel id="Arabe" title="ARABE" look="primary">
+                                <center>
+                                    <h:commandLink actionListener="#{languageCTR.actionLanguage('ar')}" >
+                                        <p:graphicImage url="/resources/images/arabe.png"
+                                                        width="50" height="50" 
+                                                        alt="Arabe"/>
+                                    </h:commandLink>
+                                </center>
+                            </b:panel>
+                        </h:form>
+                    </b:column>
+                    <b:column span="4"></b:column>
+                </b:container>
+            </b:row>
         </ui:define>
     </ui:composition>
 </html>

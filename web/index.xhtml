@@ -1,136 +1,60 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
+    <h:head>  	
         <meta charset="utf-8"/>
-        <title>Gestion de Courrier</title>
-        <h:outputStylesheet library="css" name="css/jsfcrud.css"/>
-        <h:outputStylesheet library="css" name="normalize.css"/> 
-        <h:outputStylesheet library="css" name="main.css"/>
-        <h:outputStylesheet library="css" name="preload.css"/>
-        <!--        <h:outputStylesheet library="css" name="text.css"/>-->
-        <h:outputStylesheet library="css" name="materialize.min.css"/>
-        <h:outputScript library="js" name="modernizr-2.6.2.min.js"/>
-        <h:outputScript library="js" name="jquery-1.9.1.min.js"/>
-        <h:outputScript library="js" name="main.js"/>
-        <h:outputScript library="js" name="jquery-2.1.1.min.js"/>
-        <h:outputScript library="js" name="materialize.min.js"/>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-        <style type="text/css">
-            body{
-                text-align:center;
-            }
-            h1{
-                text-transform:uppercase;
-                font-size:36px;
-                font-family:'COMIC SANS MS';
-                padding:30px;
-            }
-        </style> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"/> 
+        <meta name="description" content="fresh Gray Bootstrap 3.0 Responsive Theme "/>
+        <meta name="keywords" content="Template, Theme, web, html5, css3, Bootstrap,Bootstrap 3.0 Responsive Login" />
+        <meta name="author" content="Adsays"/>
+        <link rel="shortcut icon" href="favicon.png"/> 
+        <title>Home- Bootstrap 3.0.3 Responsive Login</title>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="demo.css"/>
+        <h:outputStylesheet library="css" name="login-theme-1.css" id="fordemo"/>
+        <h:outputStylesheet library="css" name="animate-custom.css"/>
+        <h:outputScript library="js" name="custom.modernizr.js"/>
     </h:head>
-    <h:body class="blue darken-4">
-        <f:event type="preRenderView" listener="#{userController.checkAuthentication()}" />
-        <!--                <div id="loader-wrapper">
-                            <div class="cssload-container">
-                                <div class="cssload-circle-1">
-                                    <div class="cssload-circle-2">
-                                        <div class="cssload-circle-3">
-                                            <div class="cssload-circle-4">
-                                                <div class="cssload-circle-5">
-                                                    <div class="cssload-circle-6">
-                                                        <div class="cssload-circle-7">
-                                                            <div class="cssload-circle-8">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="loader-section section-left"></div>
-                            <div class="loader-section section-right"></div>
-                        </div>-->
-        <div class="valign-wrapper" id="login-page">
-            <div class="container">
-                <div class="center-align">
-                    <div class="row">
-                        <div class="col s12"><h1 style="font-size: 50px">Wilaya de Marrakech</h1><h1>Gestion des Courriers</h1></div>
-                        <div class="col s6 offset-s3">
-                            <div class="card grey lighten-2">
-                                <div class="card-content">
-                                    <img class="responsive-img" src="http://www.go2events.fr/wp-content/uploads/2015/10/LOGO-Marrakech-1.jpg" style="max-width: 64px;" />
-                                    <div class="left-align">
-                                        <h:form id="form-login">
-                                            <p:growl autoUpdate="true" />
-                                            <div class="row">
-                                                <div class="col s12 input-field">
-                                                    <i class="mdi-social-person-outline prefix"></i>
-                                                    <h:inputText id="username" value="#{userController.selected.id}" required="true" requiredMessage="User required" />
-                                                    <h:outputLabel for="username" value="Nom d'utilisateur" />
-                                                </div>
-                                                <div class="col s12 input-field">
-                                                    <i class="mdi-action-lock-outline prefix"></i>
-                                                    <h:inputSecret id="password"  value="#{userController.selected.password}" required="true" requiredMessage="Password required!" />
-                                                    <h:outputLabel for="password" value="Mot de Passe" />
-                                                </div>
-                                                <div class="col s12 input-field">
-                                                    <h:commandLink value="Se Connecter!" styleClass="btn btn-large waves-light blue darken-4" action="#{userController.seConnecter()}" >
-                                                        <i class="tiny material-icons left">input</i>
-                                                    </h:commandLink>
-                                                </div>
-                                            </div>
-                                        </h:form>
-                                    </div>
-                                </div>
-                            </div>
+    <h:body class="fade-in">
+        <center>
+            <p style="font-size:42px;color:#16A085;text-shadow:30px 30px 30px #000;font-family: comic sans ms;">Wilaya Marrakech</p> 
+        </center>
+        <div class="container" id="login-block">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+                    <div class="login-box clearfix animated flipInY">
+                        <div class="page-icon animated bounceInDown">
+                            <img  src="resources/images/employe.png" alt="Key icon" />
                         </div>
+                        <div class="login-logo">
+                            <a href="#"><img src="resources/images/courrier.png" alt="Company Logo" /></a>
+                        </div> 
+                        <hr />
+                        <div class="login-form">
+                            <h:form   >
+                                <p:inputText placeholder="Nom d'utilisateur" id="username" value="#{userController.selected.id}"   required="true" requiredMessage="User required" />
+                                <p:password placeholder="Mot de passe" id="password"  value="#{userController.selected.password}" required="true" requiredMessage="Password required!" />
+                                <h:commandLink value="Login" styleClass="btn btn-login" action="#{userController.seConnecter()}" >
+                                </h:commandLink>
+                            </h:form>	
+                        </div> 			        	
                     </div>
                 </div>
             </div>
         </div>
-        <!--        <footer class="page-footer grey darken-4">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col l4 s12">
-                                <h5 class="white-text">ME contacter</h5>
-                                <p class="grey-text text-lighten-4">aji.</p>
-                                <a class="btn waves-effect waves-light grey darken-4" target="_blank" href="https://gitter.im/Dogfalo/materialize">Chat</a>
-                            </div>
-                            <div class="col l4 s12">
-                                <h5 class="white-text">ME contacter</h5>
-                                <p class="grey-text text-lighten-4">aji.</p>
-                                <a class="btn waves-effect waves-light grey darken-4" target="_blank" href="https://gitter.im/Dogfalo/materialize">Chat</a>
-                            </div>
-                            <div class="col l4 s12">
-                                <h5 class="white-text">ME contacter</h5>
-                                <p class="grey-text text-lighten-4">aji.</p>
-                                <a class="btn waves-effect waves-light grey darken-4" target="_blank" href="https://gitter.im/Dogfalo/materialize">Chat</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>-->
-        <script>
-            jQuery(document).ready(function () {
-                $('h1').mousemove(function (e) {
-                    var rXP = (e.pageX - this.offsetLeft - $(this).width() / 2);
-                    var rYP = (e.pageY - this.offsetTop - $(this).height() / 2);
-                    $('h1').css('text-shadow', +rYP / 10 + 'px ' + rXP / 80 + 'px rgba(227,6,19,.8), ' + rYP / 8 + 'px ' + rXP / 60 + 'px rgba(255,237,0,1), ' + rXP / 70 + 'px ' + rYP / 12 + 'px rgba(0,159,227,.7)');
-                });});
-        </script>
-        <script>
-            $(document).on("ready", function () {
-                $('#login-page').css({'height': window.innerHeight + 'px'});
-            });
-        </script>
-        <script>
-            window.jQuery || document.write('<h:outputScript library="js" name="jquery-1.9.1.min.js"/>');
-        </script>
-
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script> window.jQuery || document.write('<h:outputScript library="js" name="jquery-1.9.1.min.js"/>');</script> 
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <h:outputScript library="js" name="placeholder-shim.min.js"/>
+        <h:outputScript library="js" name="custom.js"/>
     </h:body>
 </html>
+
+
+
+
+
+

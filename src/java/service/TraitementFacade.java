@@ -5,9 +5,10 @@
  */
 package service;
 
-import bean.Consigne;
 import bean.Courrier;
+import bean.CourrierInterne;
 import bean.Traitement;
+import static bean.Traitement_.courrier;
 import bean.User;
 import controller.util.SessionUtil;
 import java.util.Date;
@@ -31,9 +32,22 @@ public class TraitementFacade extends AbstractFacade<Traitement> {
         return em.createQuery(req).getResultList();
     }
 
+    public List<Traitement> findTraitementsByCourrierInterne(CourrierInterne courrierInterne) {
+        String req = "SELECT co FROM Traitement co WHERE co.courrierInterne.id='" + courrierInterne.getId() + "'";
+        return em.createQuery(req).getResultList();
+    }
+
     public void saveTraitement(Traitement traitement, Courrier selected) {
         User user = SessionUtil.getConnectedUser();
         traitement.setCourrier(selected);
+        traitement.setDateTraitement(new Date());
+        traitement.setUniteTrait(user.getUniteAdministrative());
+        super.create(traitement);
+    }
+
+    public void saveTraitementInterne(Traitement traitement, CourrierInterne selected) {
+        User user = SessionUtil.getConnectedUser();
+        traitement.setCourrierInterne(selected);
         traitement.setDateTraitement(new Date());
         traitement.setUniteTrait(user.getUniteAdministrative());
         super.create(traitement);

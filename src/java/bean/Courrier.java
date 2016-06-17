@@ -17,10 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
-/**
- *
- * @author asus
- */
 @Entity
 public class Courrier implements Serializable {
 
@@ -30,7 +26,6 @@ public class Courrier implements Serializable {
     @Column(name = "courrier_id")
     private Long id;
     private Long numOrdreExt;
-//    private String expediteur;
     private String type;
     private String nature;
     private String objet;
@@ -38,13 +33,6 @@ public class Courrier implements Serializable {
     private Date dateArrivee;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateSaisie;
-    @JoinTable(name = "courrier_uniteadministrative",
-            joinColumns = {
-                @JoinColumn(name = "courrier_id", referencedColumnName = "courrier_id")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "uniteadministrative_id", referencedColumnName = "uniteadministrative_id")})
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<UniteAdministrative> uniteAdministratives;
     @OneToMany(mappedBy = "courrier")
     private List<PieceJointe> pieceJointes;
     @OneToMany(mappedBy = "courrier")
@@ -56,6 +44,34 @@ public class Courrier implements Serializable {
     private boolean validationCabinet = false;
     private boolean validationSg = false;
     private boolean validationDai = false;
+    @JoinTable(name = "courrier_uniteadministrative",
+            joinColumns = {
+                @JoinColumn(name = "courrier_id", referencedColumnName = "courrier_id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "uniteadministrative_id", referencedColumnName = "uniteadministrative_id")})
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UniteAdministrative> uniteAdministratives;
+    @JoinTable(name = "courrierLus",
+            joinColumns = {
+                @JoinColumn(name = "courrier_id", referencedColumnName = "courrier_id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "uniteadministrative_id", referencedColumnName = "uniteadministrative_id")})
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UniteAdministrative> lu;
+    @JoinTable(name = "courrierFavoris",
+            joinColumns = {
+                @JoinColumn(name = "courrier_id", referencedColumnName = "courrier_id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "uniteadministrative_id", referencedColumnName = "uniteadministrative_id")})
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UniteAdministrative> favoris;
+    @JoinTable(name = "courrierClotures",
+            joinColumns = {
+                @JoinColumn(name = "courrier_id", referencedColumnName = "courrier_id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "uniteadministrative_id", referencedColumnName = "uniteadministrative_id")})
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UniteAdministrative> clotures;
 
     public Long getId() {
         return id;
@@ -63,6 +79,39 @@ public class Courrier implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<UniteAdministrative> getClotures() {
+        if (clotures == null) {
+            clotures = new ArrayList<>();
+        }
+        return clotures;
+    }
+
+    public void setClotures(List<UniteAdministrative> clotures) {
+        this.clotures = clotures;
+    }
+
+    public List<UniteAdministrative> getLu() {
+        if (lu == null) {
+            lu = new ArrayList<>();
+        }
+        return lu;
+    }
+
+    public void setLu(List<UniteAdministrative> lu) {
+        this.lu = lu;
+    }
+
+    public List<UniteAdministrative> getFavoris() {
+        if (favoris == null) {
+            favoris = new ArrayList<>();
+        }
+        return favoris;
+    }
+
+    public void setFavoris(List<UniteAdministrative> favoris) {
+        this.favoris = favoris;
     }
 
     public Long getNumOrdreExt() {

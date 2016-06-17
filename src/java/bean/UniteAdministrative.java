@@ -15,6 +15,15 @@ import javax.persistence.OneToOne;
 @Entity
 public class UniteAdministrative implements Serializable {
 
+    @ManyToMany(mappedBy = "clotures")
+    private List<Courrier> courriersClotures;
+
+    @ManyToMany(mappedBy = "favoris")
+    private List<CourrierInterne> courrierInternesFavoris;
+
+    @ManyToMany(mappedBy = "lu")
+    private List<CourrierInterne> courrierInternesLus;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +50,10 @@ public class UniteAdministrative implements Serializable {
     private List<Consigne> consignes;
     @ManyToMany(mappedBy = "uniteDestinataires")
     private List<Consigne> consignesDestinataires;
+    @ManyToMany(mappedBy = "lu")
+    private List<Courrier> courriersLu;
+    @ManyToMany(mappedBy = "favoris")
+    private List<Courrier> courriersFavoris;
 
     public Long getId() {
         return id;
@@ -48,6 +61,28 @@ public class UniteAdministrative implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Courrier> getCourriersLu() {
+        if (courriersLu == null) {
+            courriersLu = new ArrayList<>();
+        }
+        return courriersLu;
+    }
+
+    public void setCourriersLu(List<Courrier> courriersLu) {
+        this.courriersLu = courriersLu;
+    }
+
+    public List<Courrier> getCourriersFavoris() {
+        if (courriersFavoris == null) {
+            courriersFavoris = new ArrayList<>();
+        }
+        return courriersFavoris;
+    }
+
+    public void setCourriersFavoris(List<Courrier> courriersFavoris) {
+        this.courriersFavoris = courriersFavoris;
     }
 
     public String getTitre() {

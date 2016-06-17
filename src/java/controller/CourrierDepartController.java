@@ -83,6 +83,10 @@ public class CourrierDepartController implements Serializable {
         return ejbFacade.getItems(items);
     }
 
+    public List<CourrierDepart> envoyes() {
+        return ejbFacade.envoyes();
+    }
+
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();

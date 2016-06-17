@@ -74,12 +74,14 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
                 UniteAdministrative get = item.getUniteDestinataires().get(j);
                 if (get.getUniteAdministrativePere() == null) {
                 } else if (get.getId() == 2 || get.getUniteAdministrativePere().getId() == 2) {
-                    if ((item.getUniteDepart().getUniteAdministrativePere().getId() == 3 && item.isValidationSg() == true) || item.getUniteDepart().getId() == 3) {
+                    if (item.getUniteDepart().getUniteAdministrativePere() == null) {
+                    } else if ((item.getUniteDepart().getUniteAdministrativePere().getId() == 3 && item.isValidationSg() == true) || item.getUniteDepart().getId() == 3) {
                         res.add(item);
                         j = item.getUniteDestinataires().size();
                     }
                 } else if (get.getId() == 3 || get.getUniteAdministrativePere().getId() == 3) {
-                    if ((item.getUniteDepart().getUniteAdministrativePere().getId() == 2 && item.isValidationDai() == true) || item.getUniteDepart().getId() == 2) {
+                    if (item.getUniteDepart().getUniteAdministrativePere() == null) {
+                    } else if ((item.getUniteDepart().getUniteAdministrativePere().getId() == 2 && item.isValidationDai() == true) || item.getUniteDepart().getId() == 2) {
                         res.add(item);
                         j = item.getUniteDestinataires().size();
                     }
@@ -97,13 +99,16 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
             CourrierInterne item = items.get(i);
             for (int j = 0; j < item.getUniteDestinataires().size(); j++) {
                 UniteAdministrative get = item.getUniteDestinataires().get(j);
-                if (get.getId() == 1 || get.getId() == 3 || get.getUniteAdministrativePere().getId() == 3) {
-                    if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2) {
+                if (get.getUniteAdministrativePere() == null) {
+                } else if (get.getId() == 1 || get.getId() == 3 || get.getUniteAdministrativePere().getId() == 3) {
+                    if (item.getUniteDepart().getUniteAdministrativePere() == null) {
+                    } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2) {
                         res.add(item);
                         j = item.getUniteDestinataires().size();
                     }
                 } else if (get.getUniteAdministrativePere().getId() == 2) {
-                    if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3 && item.isValidationSg() == true && item.isValidationCabinet() == true) {
+                    if (item.getUniteDepart().getUniteAdministrativePere() == null) {
+                    } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3 && item.isValidationSg() == true && item.isValidationCabinet() == true) {
                         res.add(item);
                         j = item.getUniteDestinataires().size();
                     } else if (item.getUniteDepart().getId() == 3 && item.isValidationCabinet() == true) {
@@ -127,13 +132,16 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
             CourrierInterne item = items.get(i);
             for (int j = 0; j < item.getUniteDestinataires().size(); j++) {
                 UniteAdministrative get = item.getUniteDestinataires().get(j);
-                if (get.getId() == 1 || get.getId() == 2 || get.getUniteAdministrativePere().getId() == 2) {
-                    if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3) {
+                if (get.getUniteAdministrativePere() == null) {
+                } else if (get.getId() == 1 || get.getId() == 2 || get.getUniteAdministrativePere().getId() == 2) {
+                    if (item.getUniteDepart().getUniteAdministrativePere() == null) {
+                    } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3) {
                         res.add(item);
                         j = item.getUniteDestinataires().size();
                     }
                 } else if (get.getUniteAdministrativePere().getId() == 3) {
-                    if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2 && item.isValidationDai() == true && item.isValidationCabinet() == true) {
+                    if (item.getUniteDepart().getUniteAdministrativePere() == null) {
+                    } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2 && item.isValidationDai() == true && item.isValidationCabinet() == true) {
                         res.add(item);
                         j = item.getUniteDestinataires().size();
                     } else if (item.getUniteDepart().getId() == 2 && item.isValidationCabinet() == true) {
@@ -154,7 +162,8 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
         List<CourrierInterne> res = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             CourrierInterne item = items.get(i);
-            if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2 && item.isValidationDai() == true) {
+            if (item.getUniteDepart().getUniteAdministrativePere() == null) {
+            } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2 && item.isValidationDai() == true) {
                 res.add(item);
             } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3 && item.isValidationSg() == true) {
                 res.add(item);
@@ -172,13 +181,13 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
         List<CourrierInterne> res = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             CourrierInterne item = items.get(i);
-            if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2) {
+            if (item.getUniteDepart().getUniteAdministrativePere() == null) {
+                res.add(item);
+            } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2) {
                 res.add(item);
             } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3 && item.isValidationSg() == true && item.isValidationCabinet() == true) {
                 res.add(item);
             } else if (item.getUniteDepart().getId() == 2 && item.isValidationCabinet() == true) {
-                res.add(item);
-            } else if (item.getUniteDepart().getId() == 1) {
                 res.add(item);
             }
         }
@@ -190,13 +199,13 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
         List<CourrierInterne> res = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             CourrierInterne item = items.get(i);
-            if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3) {
+            if (item.getUniteDepart().getUniteAdministrativePere() == null) {
+                res.add(item);
+            } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3) {
                 res.add(item);
             } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2 && item.isValidationDai() == true && item.isValidationCabinet() == true) {
                 res.add(item);
             } else if (item.getUniteDepart().getId() == 2 && item.isValidationCabinet() == true) {
-                res.add(item);
-            } else if (item.getUniteDepart().getId() == 1) {
                 res.add(item);
             }
         }
@@ -208,15 +217,15 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
         List<CourrierInterne> res = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             CourrierInterne item = items.get(i);
-            if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3 && item.isValidationDai() == true && item.isValidationCabinet() == true && item.isValidationSg() == true) {
+            if (item.getUniteDepart().getUniteAdministrativePere() == null && item.isValidationDai() == true) {
+                res.add(item);
+            } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3 && item.isValidationDai() == true && item.isValidationCabinet() == true && item.isValidationSg() == true) {
                 res.add(item);
             } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2) {
                 res.add(item);
             } else if (item.getUniteDepart().getId() == 3 && item.isValidationCabinet() == true && item.isValidationDai() == true) {
                 res.add(item);
             } else if (item.getUniteDepart().getId() == 2) {
-                res.add(item);
-            } else if (item.getUniteDepart().getId() == 1 && item.isValidationDai() == true) {
                 res.add(item);
             }
         }
@@ -228,15 +237,15 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
         List<CourrierInterne> res = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             CourrierInterne item = items.get(i);
-            if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3 && item.isValidationDai() == true && item.isValidationCabinet() == true && item.isValidationSg() == true) {
+            if (item.getUniteDepart().getUniteAdministrativePere() == null && item.isValidationDai() == true) {
+                res.add(item);
+            } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3 && item.isValidationDai() == true && item.isValidationCabinet() == true && item.isValidationSg() == true) {
                 res.add(item);
             } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2) {
                 res.add(item);
             } else if (item.getUniteDepart().getId() == 3 && item.isValidationCabinet() == true && item.isValidationDai() == true) {
                 res.add(item);
             } else if (item.getUniteDepart().getId() == 2) {
-                res.add(item);
-            } else if (item.getUniteDepart().getId() == 1 && item.isValidationDai() == true) {
                 res.add(item);
             }
         }
@@ -248,15 +257,15 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
         List<CourrierInterne> res = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             CourrierInterne item = items.get(i);
-            if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2 && item.isValidationDai() == true && item.isValidationCabinet() == true && item.isValidationSg() == true) {
+            if (item.getUniteDepart().getUniteAdministrativePere() == null && item.isValidationSg() == true) {
+                res.add(item);
+            } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2 && item.isValidationDai() == true && item.isValidationCabinet() == true && item.isValidationSg() == true) {
                 res.add(item);
             } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3) {
                 res.add(item);
             } else if (item.getUniteDepart().getId() == 2 && item.isValidationCabinet() == true && item.isValidationSg() == true) {
                 res.add(item);
             } else if (item.getUniteDepart().getId() == 3) {
-                res.add(item);
-            } else if (item.getUniteDepart().getId() == 1 && item.isValidationSg() == true) {
                 res.add(item);
             }
         }
@@ -268,15 +277,15 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
         List<CourrierInterne> res = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             CourrierInterne item = items.get(i);
-            if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2 && item.isValidationDai() == true && item.isValidationCabinet() == true && item.isValidationSg() == true) {
+            if (item.getUniteDepart().getUniteAdministrativePere() == null && item.isValidationSg() == true) {
+                res.add(item);
+            } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 2 && item.isValidationDai() == true && item.isValidationCabinet() == true && item.isValidationSg() == true) {
                 res.add(item);
             } else if (item.getUniteDepart().getUniteAdministrativePere().getId() == 3) {
                 res.add(item);
             } else if (item.getUniteDepart().getId() == 2 && item.isValidationCabinet() == true && item.isValidationSg() == true) {
                 res.add(item);
             } else if (item.getUniteDepart().getId() == 3) {
-                res.add(item);
-            } else if (item.getUniteDepart().getId() == 1 && item.isValidationSg() == true) {
                 res.add(item);
             }
         }
@@ -332,7 +341,8 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
         List<UniteAdministrative> res = new ArrayList<>();
         for (int i = 0; i < uniteAdministrativeFacade.findAll().size(); i++) {
             UniteAdministrative get = uniteAdministrativeFacade.findAll().get(i);
-            if (get.getId() == 1) {
+            if (get.getUniteAdministrativePere() == null) {
+            } else if (get.getId() == 1) {
                 List<CourrierInterne> cr = courrierInterneCabinetav();
                 List<CourrierInterne> cr1 = courrierInterneCabinet();
                 if (exist(cr, loaded) == 1) {
@@ -399,6 +409,84 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
             }
         }
         return -1;
+    }
+
+    public void FavoriserCourrier(CourrierInterne courrierInterne) {
+        User user = SessionUtil.getConnectedUser();
+        courrierInterne.getFavoris().add(user.getUniteAdministrative());
+        super.edit(courrierInterne);
+    }
+
+    public boolean courrierFavoris(CourrierInterne courrierInterne) {
+        User user = SessionUtil.getConnectedUser();
+        if (exist(courrierInterne.getFavoris(), user.getUniteAdministrative()) == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public List<CourrierInterne> favoris() {
+        User user = SessionUtil.getConnectedUser();
+        String req = "Select distinct d FROM CourrierInterne d JOIN d.favoris t WHERE t.id = '" + user.getUniteAdministrative().getId() + "'";
+        List<CourrierInterne> items = em.createQuery(req).getResultList();
+        return items;
+    }
+
+    public int nombreCourrierInterneNonLus() {
+        User user = SessionUtil.getConnectedUser();
+        if (user.getUniteAdministrative() == null) {
+            return 0;
+        } else if (user.getUniteAdministrative().getId() == 1) {
+            return nombreCourrierInterneNonLus(courrierInterneCabinet());
+        } else if (user.getUniteAdministrative().getId() == 2) {
+            return nombreCourrierInterneNonLus(courrierInterneDai());
+        } else if (user.getUniteAdministrative().getId() == 3) {
+            return nombreCourrierInterneNonLus(courrierInterneSg());
+        } else if (user.getUniteAdministrative().getId() == 4) {
+            return nombreCourrierInterneNonLus(findAll());
+        } else if (user.getUniteAdministrative().getUniteAdministrativePere().getId() == 2) {
+            return nombreCourrierInterneNonLus(courrierInterneServiceDai());
+        } else if (user.getUniteAdministrative().getUniteAdministrativePere().getId() == 3) {
+            return nombreCourrierInterneNonLus(courrierInterneDivisionSg());
+        } else {
+            return 0;
+        }
+    }
+
+    public int nombreCourrierInterneNonLus(List<CourrierInterne> courriersInternes) {
+        User user = SessionUtil.getConnectedUser();
+        List<CourrierInterne> res = new ArrayList<>();
+        for (int i = 0; i < courriersInternes.size(); i++) {
+            CourrierInterne get = courriersInternes.get(i);
+            for (int j = 0; j < get.getLu().size(); j++) {
+                UniteAdministrative get1 = get.getLu().get(j);
+                if (user.getUniteAdministrative().equals(get1)) {
+                    res.add(get);
+                }
+            }
+        }
+        return (courriersInternes.size() - res.size());
+    }
+
+    public List<CourrierInterne> Lus() {
+        User user = SessionUtil.getConnectedUser();
+        String req = "Select distinct d FROM CourrierInterne d JOIN d.lu t WHERE t.id = '" + user.getUniteAdministrative().getId() + "'";
+        List<CourrierInterne> items = em.createQuery(req).getResultList();
+        return items;
+    }
+
+    public void LireCourrier(CourrierInterne courrierInterne) {
+        User user = SessionUtil.getConnectedUser();
+        courrierInterne.getLu().add(user.getUniteAdministrative());
+        super.edit(courrierInterne);
+    }
+
+    public boolean courrierLus(CourrierInterne courrierInterne) {
+        User user = SessionUtil.getConnectedUser();
+        if (exist(courrierInterne.getLu(), user.getUniteAdministrative()) == 1) {
+            return true;
+        }
+        return false;
     }
 
     @Override

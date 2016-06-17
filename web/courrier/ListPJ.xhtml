@@ -10,7 +10,7 @@
     <ui:composition>
         <p:outputPanel autoUpdate="true">
             <h:form id="PieceJointeListForm" rendered="#{courrierController.pieceJointes.size()>0}">
-                <b:panel title="#{bundle.ListPieceJointeTitle}" look="success" style="text-align: center">
+                <b:panel title="#{bundle.ListPieceJointeTitle}" look="primary" style="text-align: center">
                     <p:dataTable id="datalistPj" value="#{courrierController.pieceJointes}" var="itemp"
                                  selectionMode="single" selection="#{courrierController.pieceJointe}"
                                  paginator="true"
