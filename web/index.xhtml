@@ -11,7 +11,7 @@
         <meta name="keywords" content="Template, Theme, web, html5, css3, Bootstrap,Bootstrap 3.0 Responsive Login" />
         <meta name="author" content="Adsays"/>
         <link rel="shortcut icon" href="favicon.png"/> 
-        <title>Home- Bootstrap 3.0.3 Responsive Login</title>
+        <title>Wilaya Marrakech</title>
         <h:outputStylesheet library="css" name="bootstrap.css"/>
         <h:outputStylesheet library="css" name="demo.css"/>
         <h:outputStylesheet library="css" name="login-theme-1.css" id="fordemo"/>
@@ -19,6 +19,8 @@
         <h:outputScript library="js" name="custom.modernizr.js"/>
     </h:head>
     <h:body class="fade-in">
+        <f:event type="preRenderView" listener="#{userController.checkAuthentication()}" />
+
         <center>
             <p style="font-size:42px;color:#16A085;text-shadow:30px 30px 30px #000;font-family: comic sans ms;">Wilaya Marrakech</p> 
         </center>

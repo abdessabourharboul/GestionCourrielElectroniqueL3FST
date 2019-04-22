@@ -32,8 +32,8 @@
                             <f:selectItem itemLabel="Add new one" itemValue=""/>
                             <p:ajax event="change" listener="#{courrierController.needCreateContact()}" process="@this"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateCourrierLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{courrierController.selected.id}" title="#{bundle.CreateCourrierTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateCourrierLabel_numOrdre}" for="numOrdre" />
+                        <p:inputText id="numOrdre" value="#{courrierController.selected.numOrdre}" title="#{bundle.CreateCourrierTitle_numOrdre}" />
                         <p:outputLabel value="#{bundle.CreateCourrierLabel_numOrdreExt}" for="numOrdreExt" />
                         <p:inputText id="numOrdreExt" value="#{courrierController.selected.numOrdreExt}" title="#{bundle.CreateCourrierTitle_numOrdreExt}" />
                         <p:outputLabel value="#{bundle.CreateCourrierLabel_type}" for="type" />

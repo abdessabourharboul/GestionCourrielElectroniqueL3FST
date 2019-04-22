@@ -13,7 +13,11 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{contactController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateContactLabel_type}" for="type" />
-                        <p:inputText id="type" value="#{contactController.selected.type}" title="#{bundle.CreateContactTitle_type}" />
+                        <p:selectOneMenu id="type" filter="true" value="#{contactController.selected.type}" >
+                            <f:selectItem itemLabel="Selectionner un type" itemValue=""/>
+                            <f:selectItem itemLabel="Personne Physique" itemValue="Physique"/>
+                            <f:selectItem itemLabel="Personne Moral" itemValue="Moral"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateContactLabel_nom}" for="nom" />
                         <p:inputText id="nom" value="#{contactController.selected.nom}" title="#{bundle.CreateContactTitle_nom}" />
                         <p:outputLabel value="#{bundle.CreateContactLabel_ville}" for="ville" />

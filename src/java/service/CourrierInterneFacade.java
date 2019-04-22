@@ -158,7 +158,8 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
     }
 
     public List<CourrierInterne> courrierInterneCabinet() {
-        List<CourrierInterne> items = courrierInterneDestineA();
+        UniteAdministrative uniteAdministrative = uniteAdministrativeFacade.find(new Long(1));
+        List<CourrierInterne> items = courrierInterneDestineA(uniteAdministrative);
         List<CourrierInterne> res = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             CourrierInterne item = items.get(i);
@@ -177,7 +178,8 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
     }
 
     public List<CourrierInterne> courrierInterneDai() {
-        List<CourrierInterne> items = courrierInterneDestineA();
+        UniteAdministrative uniteAdministrative = uniteAdministrativeFacade.find(new Long(2));
+        List<CourrierInterne> items = courrierInterneDestineA(uniteAdministrative);
         List<CourrierInterne> res = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             CourrierInterne item = items.get(i);
@@ -195,7 +197,8 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
     }
 
     public List<CourrierInterne> courrierInterneSg() {
-        List<CourrierInterne> items = courrierInterneDestineA();
+        UniteAdministrative uniteAdministrative = uniteAdministrativeFacade.find(new Long(3));
+        List<CourrierInterne> items = courrierInterneDestineA(uniteAdministrative);
         List<CourrierInterne> res = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             CourrierInterne item = items.get(i);
@@ -342,53 +345,42 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
         for (int i = 0; i < uniteAdministrativeFacade.findAll().size(); i++) {
             UniteAdministrative get = uniteAdministrativeFacade.findAll().get(i);
             if (get.getUniteAdministrativePere() == null) {
-            } else if (get.getId() == 1) {
                 List<CourrierInterne> cr = courrierInterneCabinetav();
                 List<CourrierInterne> cr1 = courrierInterneCabinet();
-                if (exist(cr, loaded) == 1) {
+                if (cr.contains(loaded) || cr1.contains(loaded)) {
                     res.add(get);
                 }
-                if (exist(cr1, loaded) == 1) {
-                    res.add(get);
-                }
-            } else if (get.getId() == 2) {
-                List<CourrierInterne> cr = courrierInterneDaiav();
-                List<CourrierInterne> cr1 = courrierInterneDai();
-                if (exist(cr, loaded) == 1) {
-                    res.add(get);
-                }
-                if (exist(cr1, loaded) == 1) {
-                    res.add(get);
-                }
-            } else if (get.getId() == 3) {
-                List<CourrierInterne> cr = courrierInterneSgav();
-                List<CourrierInterne> cr1 = courrierInterneSg();
-                if (exist(cr, loaded) == 1) {
-                    res.add(get);
-                }
-                if (exist(cr1, loaded) == 1) {
-                    res.add(get);
+            } else if (get.getUniteAdministrativePere().getId() == 1) {
+                if (get.getId() == 2) {
+                    List<CourrierInterne> cr = courrierInterneDaiav();
+                    List<CourrierInterne> cr1 = courrierInterneDai();
+                    if (cr.contains(loaded) || cr1.contains(loaded)) {
+                        res.add(get);
+                    }
+                } else if (get.getId() == 3) {
+                    List<CourrierInterne> cr = courrierInterneSgav();
+                    List<CourrierInterne> cr1 = courrierInterneSg();
+                    if (cr.contains(loaded) || cr1.contains(loaded)) {
+                        res.add(get);
+                    }
                 }
             } else if (get.getUniteAdministrativePere().getId() == 2) {
                 List<CourrierInterne> cr = courrierInterneServiceDai(get);
-                if (exist(cr, loaded) == 1) {
+                if (cr.contains(loaded)) {
                     res.add(get);
                 }
             } else if (get.getUniteAdministrativePere().getId() == 3) {
                 List<CourrierInterne> cr = courrierInterneDivisionSg(get);
-                if (exist(cr, loaded) == 1) {
+                if (cr.contains(loaded)) {
                     res.add(get);
                 }
             }
         }
-        List<UniteAdministrative> nv = new ArrayList();
         for (int i = 0; i < res.size(); i++) {
             UniteAdministrative get = res.get(i);
-            if (exist(res, get) == 1) {
-                nv.add(get);
-            }
+            System.out.println(get);
         }
-        return nv;
+        return res;
     }
 
     public int exist(List<CourrierInterne> items, CourrierInterne c) {
@@ -477,13 +469,37 @@ public class CourrierInterneFacade extends AbstractFacade<CourrierInterne> {
 
     public void LireCourrier(CourrierInterne courrierInterne) {
         User user = SessionUtil.getConnectedUser();
-        courrierInterne.getLu().add(user.getUniteAdministrative());
-        super.edit(courrierInterne);
+        if (courrierInterne.getLu().contains(user.getUniteAdministrative())) {
+        } else {
+            courrierInterne.getLu().add(user.getUniteAdministrative());
+            super.edit(courrierInterne);
+        }
     }
 
     public boolean courrierLus(CourrierInterne courrierInterne) {
         User user = SessionUtil.getConnectedUser();
         if (exist(courrierInterne.getLu(), user.getUniteAdministrative()) == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public void CloturerCourrier(CourrierInterne courrierInterne) {
+        User user = SessionUtil.getConnectedUser();
+        courrierInterne.getClotures().add(user.getUniteAdministrative());
+        super.edit(courrierInterne);
+    }
+
+    public boolean droitCloture(CourrierInterne courrierInterne) {
+        User user = SessionUtil.getConnectedUser();
+        if (courrierInterne.getUniteDestinataires().contains(user.getUniteAdministrative())) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isCloture(CourrierInterne courrierInterne) {
+        if (courrierInterne.getClotures().equals(courrierInterne.getUniteDestinataires())) {
             return true;
         }
         return false;

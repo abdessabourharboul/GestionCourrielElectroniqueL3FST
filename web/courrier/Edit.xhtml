@@ -12,8 +12,8 @@
             <h:form id="CourrierEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{courrierController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditCourrierLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{courrierController.selected.id}" title="#{bundle.EditCourrierTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditCourrierLabel_numOrdre}" for="numOrdre" />
+                        <p:inputText id="numOrdre" value="#{courrierController.selected.numOrdre}" title="#{bundle.EditCourrierTitle_numOrdre}" />
                         <p:outputLabel value="#{bundle.EditCourrierLabel_numOrdreExt}" for="numOrdreExt" />
                         <p:inputText id="numOrdreExt" value="#{courrierController.selected.numOrdreExt}" title="#{bundle.EditCourrierTitle_numOrdreExt}" />
                         <p:outputLabel value="#{bundle.EditCourrierLabel_type}" for="type" />

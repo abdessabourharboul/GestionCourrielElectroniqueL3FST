@@ -12,8 +12,8 @@
             <h:form id="CourrierViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{courrierController.selected != null}">
-                        <h:outputText value="#{bundle.ViewCourrierLabel_id}"/>
-                        <h:outputText value="#{courrierController.selected.id}" title="#{bundle.ViewCourrierTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewCourrierLabel_numOrdre}"/>
+                        <h:outputText value="#{courrierController.selected.numOrdre}" title="#{bundle.ViewCourrierTitle_numOrdre}"/>
                         <h:outputText value="#{bundle.ViewCourrierLabel_numOrdreExt}"/>
                         <h:outputText value="#{courrierController.selected.numOrdreExt}" title="#{bundle.ViewCourrierTitle_numOrdreExt}"/>
                         <h:outputText value="#{bundle.ViewCourrierLabel_type}"/>

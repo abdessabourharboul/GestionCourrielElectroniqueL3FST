@@ -28,6 +28,7 @@
                                 <b:label text="Actions" severity="warning"/>
                                 <b:commandButton id="numeroOrdre" icon="pencil" style="background-color: #279B61;color: white"  value="#{bundle.NumOrdre}"  update=":CourrierInterneEditNForm" oncomplete="PF('CourrierInterneEditNDialog').show()" rendered="#{!userController.droits('s')}"/>
                                 <b:commandButton id="ajoutTraitement" style="background-color: royalblue;color: white" icon="plus"   value="#{bundle.ajoutTraitement}" update=":TraitementCreateForm" oncomplete="PF('TraitementCreateDialog').show()" disabled="#{userController.droits('tca') or courrierInterneController.selected.id == null }"/> 
+                                <b:commandButton id="cloture" actionListener="#{courrierInterneController.CloturerCourrier()}"  style="background-color: #279B61;color: white"  icon="folder-close" value="#{bundle.Cloturer}" />
                             </b:buttonGroup>
                         </h:form>
                     </b:column>
@@ -44,9 +45,11 @@
                                              >
 
                                     <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton 
-                                            :courrierMenu:numeroOrdre :courrierMenu:ajoutTraitement"/>
+                                            :courrierMenu:numeroOrdre :courrierMenu:ajoutTraitement :courrierMenu:cloture"/>
                                     <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton 
-                                            :courrierMenu:numeroOrdre :courrierMenu:ajoutTraitement"/>
+                                            :courrierMenu:numeroOrdre :courrierMenu:ajoutTraitement :courrierMenu:cloture"/>
+                                    <p:ajax event="rowDblselect" onsuccess="document.getElementById('CourrierInterneListForm:datalist:viewButton').click();"/>
+
 
 
                                     <p:column>
@@ -105,6 +108,12 @@
                                             <h:outputText value="#{bundle.ListCourrierInterneTitle_uniteDepart}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.uniteDepart}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.cloture}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{courrierInterneController.clotures(item)}"/>
                                     </p:column>
                                     <f:facet name="footer">
                                         <b:commandButton id="createButton" look="success" icon="plus"   value="#{bundle.Create}" actionListener="#{courrierInterneController.prepareCreate}" update=":CourrierInterneCreateForm" oncomplete="PF('CourrierInterneCreateDialog').show()"/>

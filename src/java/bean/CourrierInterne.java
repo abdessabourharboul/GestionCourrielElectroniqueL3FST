@@ -62,6 +62,24 @@ public class CourrierInterne implements Serializable {
                 @JoinColumn(name = "uniteadministrative_id", referencedColumnName = "uniteadministrative_id")})
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UniteAdministrative> favoris;
+    @JoinTable(name = "courrierInterneClotures",
+            joinColumns = {
+                @JoinColumn(name = "courrierinterne_id", referencedColumnName = "courrierinterne_id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "uniteadministrative_id", referencedColumnName = "uniteadministrative_id")})
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UniteAdministrative> clotures;
+
+    public List<UniteAdministrative> getClotures() {
+        if (clotures == null) {
+            clotures = new ArrayList<>();
+        }
+        return clotures;
+    }
+
+    public void setClotures(List<UniteAdministrative> clotures) {
+        this.clotures = clotures;
+    }
 
     public List<UniteAdministrative> getLu() {
         if (lu == null) {

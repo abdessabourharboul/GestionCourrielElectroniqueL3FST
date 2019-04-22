@@ -10,6 +10,7 @@ import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
 import controller.util.ServerConfigUtil;
 import controller.util.SessionUtil;
+import java.io.IOException;
 import java.io.InputStream;
 import service.CourrierFacade;
 import java.io.Serializable;
@@ -27,11 +28,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import net.sf.jasperreports.engine.JRException;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import util.TransactionPdf;
 
 @Named("courrierController")
 @SessionScoped
@@ -58,6 +61,13 @@ public class CourrierController implements Serializable {
     private Contact contact;
     private Traitement traitement;
     private List<Traitement> traitements;
+
+    public void bilanPdf(Courrier c) throws JRException, IOException {
+        Courrier loaded = ejbFacade.find(c.getId());
+        loaded.setUniteAdministratives(c.getUniteAdministratives());
+        new TransactionPdf().generateTransactionPdf(c);
+        FacesContext.getCurrentInstance().responseComplete();
+    }
 
     public boolean isCloture(Courrier c) {
         return ejbFacade.isCloture(c);

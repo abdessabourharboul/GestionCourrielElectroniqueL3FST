@@ -2,18 +2,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Bilan Compte" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="4e9633ef-f6da-4aca-a239-827e28c0ebaa">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="nom" class="java.lang.String"/>
-	<parameter name="prenom" class="java.lang.String"/>
-	<parameter name="dateNaissance" class="java.util.Date"/>
-	<parameter name="filiere" class="java.lang.String"/>
-	<parameter name="cne" class="java.lang.String"/>
-	<parameter name="cycle" class="java.lang.String"/>
-	<parameter name="anneeUniversitaire" class="java.lang.String"/>
-	<parameter name="lieuNaissance" class="java.lang.String"/>
-	<parameter name="a" class="java.lang.String"/>
-	<parameter name="sysDate" class="java.util.Date"/>
-	<parameter name="parameter1" class="java.lang.Number"/>
+	<property name="ireport.y" value="8"/>
+	<parameter name="contact" class="java.lang.String"/>
+	<parameter name="numOrdre" class="java.lang.String"/>
+	<parameter name="numOrdreEX" class="java.lang.String"/>
+	<parameter name="objet" class="java.lang.String"/>
+	<parameter name="dateArrivee" class="java.util.Date"/>
+	<parameter name="parameter1" class="java.lang.Long"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -47,38 +42,87 @@
 				</textElement>
 				<text><![CDATA[PREFECTURE DE MARRAKECH]]></text>
 			</staticText>
-			<image>
-				<reportElement uuid="144f8cb8-95de-4fed-aeca-64614b2d459f" x="213" y="19" width="124" height="107"/>
-				<imageExpression><![CDATA["C:\\Users\\Yassine\\Desktop\\header.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="302" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="61" y="131" width="52" height="20"/>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="44" y="44" width="149" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="14"/>
 				</textElement>
-				<text><![CDATA[Cycle  :]]></text>
+				<text><![CDATA[Nom  :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="258" y="200" width="97" height="20"/>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="322" y="274" width="97" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="14"/>
 				</textElement>
 				<text><![CDATA[Marrakech, le]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement uuid="f437ecd4-c08a-4f90-acb8-f81c559eada2" x="146" y="255" width="246" height="47"/>
+				<reportElement uuid="f437ecd4-c08a-4f90-acb8-f81c559eada2" x="44" y="252" width="200" height="50"/>
 				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="2of7" drawText="false" checksumRequired="false">
 					<jr:codeExpression><![CDATA[$P{parameter1}]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="a5e5b05f-7865-4c93-ac39-328b1b91332e" x="355" y="200" width="100" height="20"/>
+				<reportElement uuid="a5e5b05f-7865-4c93-ac39-328b1b91332e" x="419" y="274" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="44" y="118" width="149" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Num d'ordre  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="44" y="86" width="149" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Objet  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="44" y="149" width="149" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Num d'ordre Exterieur  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="44" y="183" width="149" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Date d'arrivée :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="0c59daca-88ba-4e35-9a0b-946316d7b4dc" x="193" y="44" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{contact}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="926e115b-9baf-433c-b822-d5fde520b2d0" x="193" y="86" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{objet}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="24224e41-ccc1-42ce-95b4-fba25dca0c17" x="193" y="118" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{numOrdre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b26ab5a0-e507-4a5e-a368-8d7aac86e8e3" x="193" y="149" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{numOrdreEX}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b9491843-f351-43ab-94fd-69ae1fb310f0" x="193" y="183" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{dateArrivee}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

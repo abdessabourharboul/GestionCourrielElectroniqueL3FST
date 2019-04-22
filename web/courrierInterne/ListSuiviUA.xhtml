@@ -10,7 +10,7 @@
     <ui:composition>
         <p:outputPanel autoUpdate="true">
             <h:form id="UniteAdministrativeListForm" rendered="#{courrierInterneController.uniteAdministratives.size()>0}">
-                <b:panel title="#{bundle.ListUniteAdministrativeTitle}" style="text-align: center">
+                <b:panel title="Suivi" style="text-align: center">
                     <p:dataTable id="datalist" value="#{courrierInterneController.uniteAdministratives}" var="item"
                                  selectionMode="single" selection="#{courrierInterneController.uniteAdministrative}"
                                  paginator="true"

@@ -11,5 +11,5 @@ package report;
  */
 public class Templates {
 
-    public static final String BILAN = "/report/attestationInscription.jasper";
+    public static final String BILAN = "/report/newReport.jasper";
 }

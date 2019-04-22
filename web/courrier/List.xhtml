@@ -28,7 +28,7 @@
                                 <b:commandButton id="ajoutTraitement" style="background-color: royalblue;color: white" icon="plus"   value="#{bundle.ajoutTraitement}" update=":TraitementCreateForm" oncomplete="PF('TraitementCreateDialog').show()" disabled="#{userController.droits('tca') or courrierController.selected.id == null}"/> 
                                 <b:commandButton id="validation" style="background-color: #FFCC33;color: white"   icon="check" value="#{bundle.Validation}" update=":CourrierListForm, :ConsigneListForm,:menuBar" actionListener="#{courrierController.validate()}" disabled="#{userController.droits('ca') or courrierController.selected.id == null}"/>
                                 <b:commandButton id="reaffectationButton"  style="background-color: #CC3333;color: white"  icon="pencil" value="#{bundle.Reaffectation}" update=":CourrierReaffectationForm" oncomplete="PF('CourrierReaffectationDialog').show()" disabled="#{userController.droits('ca') or courrierController.selected.id == null}"/>
-                                <b:commandButton id="cloture" actionListener="#{courrierController.CloturerCourrier()}"  style="background-color: #279B61;color: white"  icon="folder-close" value="#{bundle.Cloturer}" disabled="#{userController.droits('ca') or courrierController.selected.id == null or courrierController.droitCloture()==false}"/>
+                                <b:commandButton id="cloture" actionListener="#{courrierController.CloturerCourrier()}"  style="background-color: #279B61;color: white"  icon="folder-close" value="#{bundle.Cloturer}" />
                             </b:buttonGroup>
                         </h:form>
                     </b:column>
@@ -53,6 +53,7 @@
                                              rows="10"
                                              rowsPerPageTemplate="10,20,30,40,50" 
                                              rowStyleClass="#{courrierController.courrierLusRow(item)}"
+                                             widgetVar="courrierTable"
                                              >
 
 
@@ -68,7 +69,12 @@
 
 
 
-
+                                    <f:facet name="header">
+                                        <p:outputPanel style="float: left">
+                                            <h:outputText value="Recherche rapide:" />
+                                            <p:inputText id="globalFilter" onkeyup="PF('courrierTable').filter()" style="width:150px"/>
+                                        </p:outputPanel>
+                                    </f:facet>
                                     <p:column exportable="false">
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListCourrierTitle_id}"/>
@@ -76,37 +82,37 @@
                                         <b:commandButton id="yf" value="" icon="star" style="background-color: #dbdbdb ;color: #FFCC33" rendered="#{courrierController.courrierFavoris(item)}"/>
                                         <b:commandButton id="nf" actionListener="#{courrierController.FavoriserCourrier(item)}" update=":CourrierListForm" value="" icon="star" style="background-color: #dbdbdb ;color: white" rendered="#{!courrierController.courrierFavoris(item)}"/>
                                     </p:column>
-                                    <p:column>
+                                    <p:column filterBy="#{item.numOrdre}" filterStyleClass="hide">
                                         <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListCourrierTitle_id}"/>
+                                            <h:outputText value="#{bundle.ListCourrierTitle_numOrdre}"/>
                                         </f:facet>
-                                        <h:outputText value="#{item.id}"/>
+                                        <h:outputText value="#{item.numOrdre}"/>
                                     </p:column>
-                                    <p:column>
+                                    <p:column filterBy="#{item.numOrdreExt}" filterStyleClass="hide">
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListCourrierTitle_numOrdreExt}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.numOrdreExt}"/>
                                     </p:column>
-                                    <p:column>
+                                    <p:column filterBy="#{item.type}" filterStyleClass="hide">
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListCourrierTitle_type}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.type}"/>
                                     </p:column>
-                                    <p:column>
+                                    <p:column filterBy="#{item.nature}" filterStyleClass="hide">
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListCourrierTitle_nature}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.nature}"/>
                                     </p:column>
-                                    <p:column>
+                                    <p:column filterBy="#{item.objet}" filterStyleClass="hide">
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListCourrierTitle_objet}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.objet}"/>
                                     </p:column>
-                                    <p:column>
+                                    <p:column filterBy="#{item.dateArrivee}" filterStyleClass="hide">
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListCourrierTitle_dateArrivee}"/>
                                         </f:facet>
@@ -114,7 +120,7 @@
                                             <f:convertDateTime pattern="dd/MM/yyyy" />
                                         </h:outputText>
                                     </p:column>
-                                    <p:column>
+                                    <p:column filterBy="#{item.dateSaisie}" filterStyleClass="hide">
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListCourrierTitle_dateSaisie}"/>
                                         </f:facet>
@@ -122,7 +128,7 @@
                                             <f:convertDateTime pattern="dd/MM/yyyy" />
                                         </h:outputText>
                                     </p:column>
-                                    <p:column>
+                                    <p:column filterBy="#{item.contact.nom}" filterStyleClass="hide">
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListCourrierTitle_contact}"/>
                                         </f:facet>
@@ -133,6 +139,14 @@
                                             <h:outputText value="#{bundle.cloture}"/>
                                         </f:facet>
                                         <h:outputText value="#{courrierController.clotures(item)}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.Accuse}"/>
+                                        </f:facet>
+                                        <h:commandLink value="" actionListener="#{courrierController.bilanPdf(item)}">
+                                            <p:graphicImage url="/resources/images/pdf.png" />
+                                        </h:commandLink>
                                     </p:column>
                                     <f:facet name="footer">
                                         <b:commandButton id="createButton" look="success" icon="plus"   value="#{bundle.Create}" actionListener="#{courrierController.prepareCreate}" update=":CourrierCreateForm" oncomplete="PF('CourrierCreateDialog').show()" rendered="#{!userController.droits('s')}"/>

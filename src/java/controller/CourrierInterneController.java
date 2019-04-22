@@ -41,6 +41,25 @@ public class CourrierInterneController implements Serializable {
     private Traitement traitement;
     private List<Traitement> traitements;
 
+    public boolean isCloture(CourrierInterne c) {
+        return ejbFacade.isCloture(c);
+    }
+
+    public String clotures(CourrierInterne c) {
+        if (isCloture(c) == true) {
+            return "Cloturé";
+        }
+        return "En cours";
+    }
+
+    public void CloturerCourrier() {
+        ejbFacade.CloturerCourrier(getSelected());
+    }
+
+    public boolean droitCloture() {
+        return ejbFacade.droitCloture(getSelected());
+    }
+
     public void saveTraitement() {
         traitementFacade.saveTraitementInterne(getTraitement(), getSelected());
         getTraitements().add(getTraitement());
@@ -124,7 +143,6 @@ public class CourrierInterneController implements Serializable {
     }
 
     public List<UniteAdministrative> getUniteAdministratives() {
-//        System.out.println(getSelected().getId());
         if (getSelected().getId() != null) {
             uniteAdministratives = ejbFacade.suivi(getSelected());
         } else {

@@ -29,10 +29,11 @@
                             <b:navLink value="Courrier Arrivée" outcome="/courrier/List.xhtml" icon="envelope" ><b:badge value="#{courrierController.nombreCourrierNonLus()}" rendered="#{courrierController.nombreCourrierNonLus()!=0}" style="color: white;"  styleClass="red" /></b:navLink>
                             <b:navLink value="Courrier Interne" outcome="/courrierInterne/List.xhtml" icon="envelope"><b:badge value="#{courrierInterneController.nombreCourrierNonLus()}" rendered="#{courrierInterneController.nombreCourrierNonLus()!=0}" style="color: white;"  styleClass="red" /></b:navLink>
                             <b:navLink value="Courrier Depart" outcome="/courrierDepart/List.xhtml" icon="envelope" />
+                            <b:navLink value="Liste de tous les contacts" outcome="/test/ListC.xhtml" icon="envelope" />
                         </b:dropMenu>
                         <b:dropMenu value="#{bundle.Maintenance}" icon="briefcase" rendered="#{!userController.droits('tous')}"> 
-                            <b:navLink value="Consigne" outcome="/admin/consigne/List.xhtml" icon="bookmark"/>
-                            <b:navLink value="Traitement" outcome="/admin/traitement/List.xhtml" icon="bookmark"/>
+                            <b:navLink value="Consigne" outcome="/admin/consigne/List.xhtml" icon="comment"/>
+                            <b:navLink value="Traitement" outcome="/admin/traitement/List.xhtml" icon="list"/>
                             <b:navLink value="Contact" outcome="/admin/contact/List.xhtml" icon="bookmark"/>
                             <b:navLink value="PieceJointe" outcome="/admin/pieceJointe/List.xhtml" icon="paperclip"  />
                             <b:navLink value="Gestion des Roles" icon="filter" outcome="/admin/role/List.xhtml"  />

@@ -26,9 +26,6 @@
                                      rowsPerPageTemplate="10,20,30,40,50"
                                      >
 
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListContactTitle_type}"/>
@@ -65,20 +62,11 @@
                                 </f:facet>
                                 <h:outputText value="#{item.id}"/>
                             </p:column>
-                            <f:facet name="footer">
-                                <b:commandButton look="success" id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{contactController.prepareCreate}" update=":ContactCreateForm" oncomplete="PF('ContactCreateDialog').show()"/>
-                                <b:commandButton look="warning" id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ContactViewForm" oncomplete="PF('ContactViewDialog').show()" disabled="#{ contactController.selected.id==null}"/>
-                                <b:commandButton look="primary" id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ContactEditForm" oncomplete="PF('ContactEditDialog').show()" disabled="#{ contactController.selected.id==null}"/>
-                                <b:commandButton look="danger" id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{contactController.destroy}" update=":growl,datalist" disabled="#{ contactController.selected.id==null}"/>
-                            </f:facet>
+
                         </p:dataTable>
                     </b:panel>
                 </h:form>
             </b:container>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 </html>

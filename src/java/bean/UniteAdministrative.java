@@ -15,15 +15,6 @@ import javax.persistence.OneToOne;
 @Entity
 public class UniteAdministrative implements Serializable {
 
-    @ManyToMany(mappedBy = "clotures")
-    private List<Courrier> courriersClotures;
-
-    @ManyToMany(mappedBy = "favoris")
-    private List<CourrierInterne> courrierInternesFavoris;
-
-    @ManyToMany(mappedBy = "lu")
-    private List<CourrierInterne> courrierInternesLus;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +45,14 @@ public class UniteAdministrative implements Serializable {
     private List<Courrier> courriersLu;
     @ManyToMany(mappedBy = "favoris")
     private List<Courrier> courriersFavoris;
+    @ManyToMany(mappedBy = "clotures")
+    private List<CourrierInterne> courrierInternesClotures;
+    @ManyToMany(mappedBy = "clotures")
+    private List<Courrier> courriersClotures;
+    @ManyToMany(mappedBy = "favoris")
+    private List<CourrierInterne> courrierInternesFavoris;
+    @ManyToMany(mappedBy = "lu")
+    private List<CourrierInterne> courrierInternesLus;
 
     public Long getId() {
         return id;
@@ -61,6 +60,54 @@ public class UniteAdministrative implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public UniteAdministrative getUniteAdministrativePere() {
+        return uniteAdministrativePere;
+    }
+
+    public void setUniteAdministrativePere(UniteAdministrative uniteAdministrativePere) {
+        this.uniteAdministrativePere = uniteAdministrativePere;
+    }
+
+    public List<CourrierInterne> getCourrierInternesClotures() {
+        return courrierInternesClotures;
+    }
+
+    public void setCourrierInternesClotures(List<CourrierInterne> courrierInternesClotures) {
+        this.courrierInternesClotures = courrierInternesClotures;
+    }
+
+    public List<Courrier> getCourriersClotures() {
+        return courriersClotures;
+    }
+
+    public void setCourriersClotures(List<Courrier> courriersClotures) {
+        this.courriersClotures = courriersClotures;
+    }
+
+    public List<CourrierInterne> getCourrierInternesFavoris() {
+        return courrierInternesFavoris;
+    }
+
+    public void setCourrierInternesFavoris(List<CourrierInterne> courrierInternesFavoris) {
+        this.courrierInternesFavoris = courrierInternesFavoris;
+    }
+
+    public List<CourrierInterne> getCourrierInternesLus() {
+        return courrierInternesLus;
+    }
+
+    public void setCourrierInternesLus(List<CourrierInterne> courrierInternesLus) {
+        this.courrierInternesLus = courrierInternesLus;
     }
 
     public List<Courrier> getCourriersLu() {
@@ -83,22 +130,6 @@ public class UniteAdministrative implements Serializable {
 
     public void setCourriersFavoris(List<Courrier> courriersFavoris) {
         this.courriersFavoris = courriersFavoris;
-    }
-
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
-    public UniteAdministrative getUniteAdministrativePere() {
-        return uniteAdministrativePere;
-    }
-
-    public void setUniteAdministrativePere(UniteAdministrative uniteAdministrativePere) {
-        this.uniteAdministrativePere = uniteAdministrativePere;
     }
 
     public List<Consigne> getConsignesDestinataires() {

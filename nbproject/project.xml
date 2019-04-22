@@ -31,6 +31,10 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+                    <file>${file.reference.guava-15.0-rc1.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
                     <file>${file.reference.org.apache.commons.fileupload.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>

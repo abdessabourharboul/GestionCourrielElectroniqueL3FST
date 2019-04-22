@@ -35,19 +35,14 @@ public class Dashboard implements Serializable {
         DashboardColumn column5 = new DefaultDashboardColumn();
 
         column1.addWidget("Courrier");
-        
-        
+
         column2.addWidget("Dossiers");
-       
-        
+
         column3.addWidget("Employe");
-        
-        
+
         column4.addWidget("UniteAdministrative");
-        
-        
+
         column5.addWidget("Utilisateurs");
-        
 
         model.addColumn(column1);
         model.addColumn(column2);
@@ -71,7 +66,6 @@ public class Dashboard implements Serializable {
 
     public void handleClose(CloseEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Panel Closed", "Closed panel id:'" + event.getComponent().getId() + "'");
-
         addMessage(message);
     }
 

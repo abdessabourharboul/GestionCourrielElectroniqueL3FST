@@ -1,7 +1,6 @@
 package converter;
 
 import bean.Role;
-import bean.UniteAdministrative;
 import controller.util.JsfUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;

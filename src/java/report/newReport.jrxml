@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec03501f-d30c-4d4f-b8cc-4af2722b18ac">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="contact" class="java.lang.String"/>
+	<parameter name="numOrdre" class="java.lang.String"/>
+	<parameter name="objet" class="java.lang.String"/>
+	<parameter name="dateArrivee" class="java.util.Date"/>
+	<parameter name="parameter1" class="java.lang.Long"/>
+	<parameter name="numOrdreEX" class="java.lang.Long"/>
+	<parameter name="date" class="java.util.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="122" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="6d0d4f23-d195-4292-8c6a-4e647ff98c5f" x="10" y="58" width="213" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[PREFECTURE DE MARRAKECH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d0d4f23-d195-4292-8c6a-4e647ff98c5f" x="10" y="34" width="213" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[MINISTERE DE L'INTERIEUR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d0d4f23-d195-4292-8c6a-4e647ff98c5f" x="10" y="10" width="213" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ROYAUME DU MAROC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d0d4f23-d195-4292-8c6a-4e647ff98c5f" x="140" y="82" width="289" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Accusé de récéption]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="359" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="f437ecd4-c08a-4f90-acb8-f81c559eada2" x="23" y="228" width="200" height="50"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="2of7" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$P{parameter1}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="10" y="84" width="149" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Num d'ordre  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="10" y="149" width="149" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Date d'arrivée :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="10" y="115" width="149" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Num d'ordre Exterieur  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="10" y="52" width="149" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Objet  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="10" y="10" width="149" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Nom  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d071931-419a-4da5-a8ca-9b9ec23a4dff" x="288" y="240" width="97" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Marrakech, le]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ee33be32-5bdc-4e0d-affc-215655424442" x="188" y="16" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{contact}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9bb65d82-3d82-40d2-95f3-e113fdd81293" x="188" y="84" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{numOrdre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c981480d-3f0b-4340-9e3b-947206677f48" x="188" y="52" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{objet}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4fa782c1-5d83-4f61-89ff-681a84d24ca2" x="188" y="149" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{dateArrivee}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b6053110-319f-4a15-a80a-8f448cf0e27b" x="188" y="115" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{numOrdreEX}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5e8bb45c-05a5-4dfe-854b-fcb7ef243c0c" x="385" y="240" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

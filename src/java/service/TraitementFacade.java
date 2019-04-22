@@ -8,7 +8,6 @@ package service;
 import bean.Courrier;
 import bean.CourrierInterne;
 import bean.Traitement;
-import static bean.Traitement_.courrier;
 import bean.User;
 import controller.util.SessionUtil;
 import java.util.Date;

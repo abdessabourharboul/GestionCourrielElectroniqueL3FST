@@ -25,6 +25,7 @@ public class Courrier implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "courrier_id")
     private Long id;
+    private String numOrdre;
     private Long numOrdreExt;
     private String type;
     private String nature;
@@ -79,6 +80,14 @@ public class Courrier implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNumOrdre() {
+        return numOrdre;
+    }
+
+    public void setNumOrdre(String numOrdre) {
+        this.numOrdre = numOrdre;
     }
 
     public List<UniteAdministrative> getClotures() {

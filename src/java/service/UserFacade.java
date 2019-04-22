@@ -157,7 +157,7 @@ public class UserFacade extends AbstractFacade<User> {
     public void checkAuthentication() throws IOException {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         if (getConnectedUser() != null) {
-            externalContext.redirect(externalContext.getRequestContextPath() + "/template.xhtml");
+            externalContext.redirect(externalContext.getRequestContextPath() + "/first.xhtml");
         }
     }
 
